@@ -1,0 +1,21 @@
+extends Sprite2D
+
+@onready var anim_player = $AnimationPlayer
+
+func _ready():
+	anim_player.play("Fadeout")
+	print("hiii")
+
+func set_new_texture(sprite):
+	texture = sprite.texture
+	hframes = sprite.hframes
+	vframes = sprite.vframes
+	offset = sprite.offset
+	frame = sprite.frame
+	scale = sprite.scale
+	flip_h = sprite.flip_h
+	flip_v = sprite.flip_v
+
+func _on_AnimationPlayer_animation_finished(_anim_name):
+	queue_free()
+	

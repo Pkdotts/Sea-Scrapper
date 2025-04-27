@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ci13ffxro3ikj"]
+
+[ext_resource type="SpriteFrames" uid="uid://hq5yd8avdbhr" path="res://Graphics/Bullets/Bullets.tres" id="1_26cxb"]
+[ext_resource type="Script" uid="uid://b4qil1adturg1" path="res://Scripts/BulletPop.gd" id="2_88n20"]
+
+[node name="BulletEffect" type="AnimatedSprite2D"]
+sprite_frames = ExtResource("1_26cxb")
+animation = &"BulletPop"
+script = ExtResource("2_88n20")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

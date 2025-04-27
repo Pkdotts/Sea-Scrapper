@@ -1,0 +1,156 @@
+[gd_resource type="SpriteFrames" load_steps=21 format=3 uid="uid://hq5yd8avdbhr"]
+
+[ext_resource type="Texture2D" uid="uid://dwx2fwlsil33c" path="res://addons/BulletUpHell/Bullet/Sprites/Bullet_3.png" id="1_iw8l7"]
+[ext_resource type="Texture2D" uid="uid://41yq7ueo080a" path="res://Graphics/Bullets/BulletPop.png" id="2_b67sk"]
+[ext_resource type="Texture2D" uid="uid://cnrvn03ptiknr" path="res://Graphics/Bullets/EnemyBullet.png" id="3_5rgjw"]
+[ext_resource type="Texture2D" uid="uid://beabjtbxfc3i7" path="res://addons/BulletUpHell/Bullet/Sprites/Bullet_06.png" id="4_y5412"]
+[ext_resource type="Texture2D" uid="uid://blpbi2teq8tpr" path="res://addons/BulletUpHell/Bullet/Sprites/Bullet_11.png" id="5_hn0ov"]
+[ext_resource type="Texture2D" uid="uid://coxa4jbgwkvp3" path="res://Graphics/Bullets/PlayerBullet.png" id="6_8ebo5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rgjw"]
+atlas = ExtResource("2_b67sk")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y5412"]
+atlas = ExtResource("2_b67sk")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hn0ov"]
+atlas = ExtResource("2_b67sk")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iw8l7"]
+atlas = ExtResource("2_b67sk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b67sk"]
+atlas = ExtResource("2_b67sk")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ebo5"]
+atlas = ExtResource("2_b67sk")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v8duq"]
+atlas = ExtResource("3_5rgjw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7iku"]
+atlas = ExtResource("3_5rgjw")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ar2rg"]
+atlas = ExtResource("3_5rgjw")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4cm2"]
+atlas = ExtResource("3_5rgjw")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jql6q"]
+atlas = ExtResource("6_8ebo5")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k2iyr"]
+atlas = ExtResource("6_8ebo5")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8k1e"]
+atlas = ExtResource("6_8ebo5")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tur3b"]
+atlas = ExtResource("6_8ebo5")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_iw8l7")
+}],
+"loop": true,
+"name": &"0",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rgjw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y5412")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hn0ov")
+}],
+"loop": false,
+"name": &"BulletPop",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iw8l7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b67sk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ebo5")
+}],
+"loop": false,
+"name": &"BulletStart",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v8duq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7iku")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ar2rg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4cm2")
+}],
+"loop": true,
+"name": &"EnemyBullet",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_iw8l7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_y5412")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_hn0ov")
+}],
+"loop": true,
+"name": &"Example",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jql6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k2iyr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8k1e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tur3b")
+}],
+"loop": true,
+"name": &"PlayerBullet",
+"speed": 24.0
+}]

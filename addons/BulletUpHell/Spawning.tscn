@@ -1,0 +1,105 @@
+[gd_scene load_steps=13 format=3 uid="uid://gixop20d1d75"]
+
+[ext_resource type="Script" uid="uid://b4vpuwfsf63sf" path="res://addons/BulletUpHell/BuHSpawner.gd" id="1"]
+[ext_resource type="Script" uid="uid://gq1gxuqxjsmq" path="res://addons/BulletUpHell/Bullet/animStates.gd" id="2_4dc5c"]
+[ext_resource type="SpriteFrames" uid="uid://hq5yd8avdbhr" path="res://Graphics/Bullets/Bullets.tres" id="3_278d1"]
+[ext_resource type="AudioStream" uid="uid://y37q3l5symjo" path="res://addons/BulletUpHell/Bullet/Hit Hurt.wav" id="5_rada6"]
+
+[sub_resource type="Resource" id="Resource_uhb1j"]
+script = ExtResource("2_4dc5c")
+ID = ""
+texture = "0"
+collision = "0"
+SFX = ""
+tex_scale = 1.0
+tex_skew = 0.0
+
+[sub_resource type="Resource" id="Resource_f2r10"]
+script = ExtResource("2_4dc5c")
+ID = ""
+texture = "0"
+collision = "0"
+SFX = ""
+tex_scale = 1.0
+tex_skew = 0.0
+
+[sub_resource type="Resource" id="Resource_i42bv"]
+script = ExtResource("2_4dc5c")
+ID = ""
+texture = "0"
+collision = "0"
+SFX = "0"
+tex_scale = 1.0
+tex_skew = 0.0
+
+[sub_resource type="Resource" id="Resource_7rfek"]
+script = ExtResource("2_4dc5c")
+ID = ""
+texture = "0"
+collision = "0"
+SFX = ""
+tex_scale = 1.0
+tex_skew = 0.0
+
+[sub_resource type="Resource" id="Resource_tl1ht"]
+script = ExtResource("2_4dc5c")
+ID = ""
+texture = "0"
+collision = "0"
+SFX = ""
+tex_scale = 1.0
+tex_skew = 0.0
+
+[sub_resource type="CircleShape2D" id="2"]
+radius = 4.0
+
+[sub_resource type="ConvexPolygonShape2D" id="3"]
+points = PackedVector2Array(0, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_paewv"]
+radius = 6.0
+
+[node name="BulletHellManager" type="Node2D"]
+z_index = 999
+script = ExtResource("1")
+default_idle = SubResource("Resource_uhb1j")
+default_spawn = SubResource("Resource_f2r10")
+default_shoot = SubResource("Resource_i42bv")
+default_waiting = SubResource("Resource_7rfek")
+default_delete = SubResource("Resource_tl1ht")
+
+[node name="SharedAreas" type="Node2D" parent="."]
+
+[node name="0" type="Area2D" parent="SharedAreas"]
+
+[node name="ShapeManager" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("3_278d1")
+animation = &"BulletPop"
+
+[node name="0" type="CollisionShape2D" parent="ShapeManager"]
+shape = SubResource("2")
+
+[node name="LaserBeam" type="CollisionShape2D" parent="ShapeManager"]
+shape = SubResource("3")
+
+[node name="BasicBullet" type="CollisionShape2D" parent="ShapeManager"]
+shape = SubResource("CircleShape2D_paewv")
+
+[node name="BulletPop" type="CollisionShape2D" parent="ShapeManager"]
+shape = SubResource("CircleShape2D_paewv")
+
+[node name="BulletStart" type="CollisionShape2D" parent="ShapeManager"]
+shape = SubResource("CircleShape2D_paewv")
+
+[node name="SFX" type="Node2D" parent="."]
+
+[node name="0" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("5_rada6")
+
+[node name="Bouncy" type="CharacterBody2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bouncy"]
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+visible = false

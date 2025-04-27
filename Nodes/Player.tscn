@@ -1,0 +1,133 @@
+[gd_scene load_steps=15 format=3 uid="uid://bymroxacy3fuv"]
+
+[ext_resource type="Script" uid="uid://ci5evxd4gt03l" path="res://Scripts/Player.gd" id="1_rag87"]
+[ext_resource type="Texture2D" uid="uid://cogmw4gq30lkk" path="res://Graphics/Characters/Player.png" id="2_nxee5"]
+[ext_resource type="PackedScene" uid="uid://qf8er53c01bo" path="res://Nodes/Gun.tscn" id="2_wtlec"]
+[ext_resource type="PackedScene" uid="uid://dku8uc58tn2pw" path="res://Nodes/Bullets/PlayerBullets/ChargeShot.tscn" id="3_s6v37"]
+[ext_resource type="PackedScene" uid="uid://dr1ey23318mv1" path="res://Nodes/Bullets/PlayerBullets/PlayerBullet.tscn" id="3_uudy6"]
+[ext_resource type="PackedScene" uid="uid://b0to6b6rvc7oc" path="res://Nodes/MeleeAttack.tscn" id="4_r30v1"]
+[ext_resource type="PackedScene" uid="uid://cp48b2nhwb7ih" path="res://Nodes/Effects/AfterImageCreator.tscn" id="6_hrew7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gi4ye"]
+radius = 16.0312
+
+[sub_resource type="Animation" id="Animation_r1qq6"]
+resource_name = "Idle"
+length = 0.333342
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.177709),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_dy10h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_s6v37"]
+resource_name = "MoveForward"
+length = 0.333342
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_05ma0"]
+resource_name = "MoveBackwards"
+length = 0.333342
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p7yoa"]
+_data = {
+&"Idle": SubResource("Animation_r1qq6"),
+&"MoveBackwards": SubResource("Animation_05ma0"),
+&"MoveForward": SubResource("Animation_s6v37"),
+&"RESET": SubResource("Animation_dy10h")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s6v37"]
+radius = 8.0
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+motion_mode = 1
+script = ExtResource("1_rag87")
+
+[node name="Gun" parent="." instance=ExtResource("2_wtlec")]
+position = Vector2(18, 2)
+charge_shot = ExtResource("3_s6v37")
+bullet = ExtResource("3_uudy6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_nxee5")
+hframes = 6
+
+[node name="MeleeAttack" parent="." instance=ExtResource("4_r30v1")]
+position = Vector2(10, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gi4ye")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_p7yoa")
+}
+
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="AfterImageCreator" parent="." instance=ExtResource("6_hrew7")]
+spritePath = NodePath("../Sprite2D")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_s6v37")
+
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

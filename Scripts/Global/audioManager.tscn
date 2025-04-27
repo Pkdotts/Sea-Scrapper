@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxiwmowh4j6ps"]
+
+[ext_resource type="Script" uid="uid://bperlwsg6y8jj" path="res://Scripts/Global/audioManager.gd" id="1"]
+
+[node name="audioManager" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1")
+
+[node name="AudioPlayers" type="Control" parent="."]
+anchors_preset = 0
+
+[node name="Sfx" type="Node" parent="."]

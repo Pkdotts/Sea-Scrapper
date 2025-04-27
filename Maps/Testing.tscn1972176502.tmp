@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://nxm5py8srpxd"]
+
+[ext_resource type="PackedScene" uid="uid://bymroxacy3fuv" path="res://Nodes/Player.tscn" id="1_rujj4"]
+[ext_resource type="PackedScene" uid="uid://cm4qm7klpesq6" path="res://Nodes/Enemies/Enemy.tscn" id="2_acudx"]
+[ext_resource type="SpriteFrames" uid="uid://hq5yd8avdbhr" path="res://Graphics/Bullets/Bullets.tres" id="3_r451g"]
+
+[node name="Testing" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_rujj4")]
+position = Vector2(43, 89)
+bulletParentPath = NodePath("../Node2D")
+
+[node name="Enemy" parent="." instance=ExtResource("2_acudx")]
+position = Vector2(242, 43)
+
+[node name="Enemy2" parent="." instance=ExtResource("2_acudx")]
+position = Vector2(293, 134)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(17.37, 28.4556)
+sprite_frames = ExtResource("3_r451g")
+animation = &"PlayerBullet"
+
+[node name="Node2D" type="Node2D" parent="."]

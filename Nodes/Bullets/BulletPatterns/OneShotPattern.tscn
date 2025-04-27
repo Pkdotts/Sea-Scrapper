@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bo8b84dye6us3"]
+
+[ext_resource type="Script" uid="uid://5stk1gvpktyg" path="res://Scripts/BulletPattern.gd" id="1_h0rw0"]
+
+[node name="OneShotPattern" type="Node2D"]
+script = ExtResource("1_h0rw0")

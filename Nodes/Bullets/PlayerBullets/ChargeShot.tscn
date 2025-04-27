@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dku8uc58tn2pw"]
+
+[ext_resource type="Script" uid="uid://cnonhwrm2vyrh" path="res://Scripts/ChargeShot.gd" id="1_hg3oo"]
+[ext_resource type="SpriteFrames" uid="uid://hq5yd8avdbhr" path="res://Graphics/Bullets/Bullets.tres" id="2_polvl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pcwuu"]
+radius = 5.0
+
+[node name="ChargeShot" type="Area2D" groups=["Bullet", "PlayerAttack"]]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_hg3oo")
+startAnim = "BulletStart"
+idleAnim = "PlayerBullet"
+endAnim = "BulletPop"
+destroy_on_hit = false
+damage = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pcwuu")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("2_polvl")
+animation = &"PlayerBullet"
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
