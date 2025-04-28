@@ -1,0 +1,282 @@
+[gd_scene load_steps=22 format=3 uid="uid://cm4qm7klpesq6"]
+
+[ext_resource type="Script" uid="uid://ctpvm2olx0he8" path="res://Scripts/Enemies/BasicEnemy.gd" id="1_wqu7i"]
+[ext_resource type="Material" uid="uid://bqmu8g5akxawm" path="res://Shaders/Flash.tres" id="2_t8im6"]
+[ext_resource type="Texture2D" uid="uid://byuvlr5ujd1ib" path="res://Graphics/Enemies/RoboFish.png" id="3_wvlou"]
+[ext_resource type="Script" uid="uid://s3ysfh7um7ev" path="res://Scripts/BulletSpawner.gd" id="4_d3lls"]
+[ext_resource type="PackedScene" uid="uid://b8p14fnn4k01l" path="res://Nodes/Bullets/EnemyBullets/EnemyBullet.tscn" id="5_mgv6j"]
+[ext_resource type="Script" uid="uid://5stk1gvpktyg" path="res://Scripts/BulletPattern.gd" id="6_n6lyr"]
+[ext_resource type="Script" uid="uid://bcj1fhoji58bm" path="res://Scripts/ScrapSpawner.gd" id="7_eflu6"]
+[ext_resource type="PackedScene" uid="uid://dx4wkq1qppqbh" path="res://Nodes/Effects/Explosion.tscn" id="8_pkc57"]
+[ext_resource type="PackedScene" uid="uid://bmgevjgtkjqw5" path="res://Nodes/Scrap.tscn" id="9_x2366"]
+[ext_resource type="Script" uid="uid://duu7eqorvs2st" path="res://Scripts/BubbleSpawner.gd" id="10_b2xxv"]
+[ext_resource type="PackedScene" uid="uid://clkaw58ubcibl" path="res://Nodes/Effects/Bubble.tscn" id="11_xf8sp"]
+
+[sub_resource type="Animation" id="Animation_ekvrh"]
+resource_name = "Flash"
+length = 0.166671
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/glow_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/glow_modifier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_x28kj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/glow_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/glow_modifier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:material:shader_parameter/flash_modifier")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:material:shader_parameter/flash_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.596078, 0.964706, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_60npf"]
+resource_name = "VulnerabilityFlash"
+length = 0.166671
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/flash_modifier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166671),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_riuap"]
+resource_name = "Vulnerable"
+length = 0.333338
+loop_mode = 1
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.185786),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/glow_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_riuap"]
+_data = {
+&"Flash": SubResource("Animation_ekvrh"),
+&"RESET": SubResource("Animation_x28kj"),
+&"VulnerabilityFlash": SubResource("Animation_60npf"),
+&"Vulnerable": SubResource("Animation_riuap")
+}
+
+[sub_resource type="Animation" id="Animation_wc4c6"]
+resource_name = "Idle"
+length = 0.666675
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_6wd8m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qcj7j"]
+_data = {
+&"Idle": SubResource("Animation_wc4c6"),
+&"RESET": SubResource("Animation_6wd8m")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wc4c6"]
+radius = 11.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ekvrh"]
+radius = 11.0
+
+[node name="RoboFish" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_wqu7i")
+hp = 10
+vulnerabilityThreshold = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("2_t8im6")
+position = Vector2(-1, -1)
+texture = ExtResource("3_wvlou")
+hframes = 2
+
+[node name="FlashPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_riuap")
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qcj7j")
+}
+
+[node name="Hitbox" type="Area2D" parent="." groups=["EnemyAttack"]]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_wc4c6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ekvrh")
+
+[node name="Timer" type="Timer" parent="." groups=["EnemyAttack"]]
+
+[node name="BulletSpawner" type="Node2D" parent="."]
+position = Vector2(-5, 0)
+script = ExtResource("4_d3lls")
+bullet = ExtResource("5_mgv6j")
+metadata/_custom_type_script = "uid://s3ysfh7um7ev"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="BulletPattern" type="Node" parent="."]
+script = ExtResource("6_n6lyr")
+bullet_amount = 1
+bullet_interval = 0.2
+bullet_spawner = NodePath("../BulletSpawner")
+metadata/_custom_type_script = "uid://5stk1gvpktyg"
+
+[node name="ExplosionSpawner" type="Node2D" parent="."]
+position = Vector2(10, 0)
+script = ExtResource("7_eflu6")
+item = ExtResource("8_pkc57")
+amount = 3
+interval = 0.04
+random_spawn_size = Vector2(5, 10)
+metadata/_custom_type_script = "uid://bcj1fhoji58bm"
+
+[node name="ScrapSpawner" type="Node2D" parent="."]
+script = ExtResource("7_eflu6")
+item = ExtResource("9_x2366")
+amount = 3
+metadata/_custom_type_script = "uid://bcj1fhoji58bm"
+
+[node name="BubbleSpawner" type="Node2D" parent="."]
+script = ExtResource("10_b2xxv")
+auto_spawn = true
+timer_wait_time = 1.0
+random_spawn_start = true
+bullet = ExtResource("11_xf8sp")
+metadata/_custom_type_script = "uid://duu7eqorvs2st"
+
+[connection signal="animation_finished" from="FlashPlayer" to="." method="_on_flash_player_animation_finished"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]

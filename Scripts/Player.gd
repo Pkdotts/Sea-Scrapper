@@ -168,7 +168,8 @@ func hit_pause(time):
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area.get_groups().has("EnemyAttack") and state != States.DASHING and !effects_player.is_playing():
-		area.collide()
+		if area.has_method("collide"):
+			area.collide()
 		damage()
 
 func set_attacking(enabled: bool):

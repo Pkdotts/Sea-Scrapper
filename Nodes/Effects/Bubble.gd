@@ -1,9 +1,9 @@
 extends Sprite2D
 
 @onready var anim_player = $AnimationPlayer
-@onready var amplitude = 4.0
-@onready var speed = 4.0
-@onready var float_speed = 40.0
+var amplitude = 4.0
+var speed = 4.0
+var float_speed = 40.0
 var og_pos_x = 0
 var og_time = 0.0
 

@@ -1,20 +1,17 @@
 extends CharacterBody2D
-class_name Enemy
+class_name BasicEnemy
 
 enum States {MOVING, DYING}
 
 @export var hp = 15
 @export var vulnerabilityThreshold = 10
-@export var timer_before_shooting = 1.0
-@export var repeat_shot = false
 
-@onready var anim_player = $AnimationPlayer
-@onready var FlashPlayer = $FlashPlayer
-@onready var Sprite = $Sprite2D
-@onready var ScrapSpawner = $ScrapSpawner
-@onready var bullet_pattern = $BulletPattern
-@onready var explosion_spawner = $ExplosionSpawner
-@onready var visibility_notifier = $VisibleOnScreenNotifier2D
+@onready var anim_player : AnimationPlayer = $AnimationPlayer
+@onready var FlashPlayer : AnimationPlayer = $FlashPlayer
+@onready var Sprite : Sprite2D = $Sprite2D
+@onready var ScrapSpawner : ItemSpawner = $ScrapSpawner
+@onready var explosion_spawner : ItemSpawner = $ExplosionSpawner
+@onready var visibility_notifier : VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 
 
 var death_sfx = preload("res://Sound/SFX/metal_pipe.mp3")
@@ -23,8 +20,6 @@ const KNOCKBACKSPEED = 400
 const KNOCKBACKSPEEDMELEE = 400
 const KNOCKBACKDECELERATE = 2000
 const MOVESPEED = 1000
-
-
 
 var state = States.MOVING
 
@@ -36,27 +31,21 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	match state:
 		States.DYING:
-			velocity.x -= KNOCKBACKDECELERATE * delta
-			move_and_slide()
-			if velocity.x <= 0:
-				die()
+			dying(delta)
 		States.MOVING:
 			movement(delta)
+
+func dying(delta):
+	velocity.x -= KNOCKBACKDECELERATE * delta
+	move_and_slide()
+	if velocity.x <= 0:
+		die()
 
 # Abstract
 func movement(delta):
 	#velocity.x = -MOVESPEED * delta
 	#move_and_slide()
 	pass
-
-# Abstract
-func shoot():
-	await get_tree().create_timer(timer_before_shooting).timeout
-	if !is_vulnerable():
-		if state != States.DYING:
-			bullet_pattern.activate_bullet_spawner()
-			if repeat_shot:
-				shoot()
 
 func damage(amt, groups):
 	hp -= amt
@@ -103,7 +92,3 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 func _on_flash_player_animation_finished(anim_name: StringName) -> void:
 	if "Flash" in anim_name && hp <= vulnerabilityThreshold:
 		FlashPlayer.play("Vulnerable")
-
-
-func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
-	shoot()
