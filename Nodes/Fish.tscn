@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bmgevjgtkjqw5"]
+[gd_scene load_steps=5 format=3 uid="uid://ognrw56p3tyd"]
 
-[ext_resource type="Script" uid="uid://cqi5ehgal3w54" path="res://Scripts/Scrap.gd" id="1_7dubb"]
-[ext_resource type="Texture2D" uid="uid://c4bkrltdqfd62" path="res://Graphics/Collectables/Scrap.png" id="2_la1x0"]
+[ext_resource type="Script" uid="uid://cqi5ehgal3w54" path="res://Scripts/Scrap.gd" id="1_6crwi"]
+[ext_resource type="Texture2D" uid="uid://c4bkrltdqfd62" path="res://Graphics/Collectables/Scrap.png" id="2_vhb1y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cxphb"]
 radius = 3.0
@@ -16,10 +16,10 @@ mass = 3.639
 gravity_scale = 0.0
 lock_rotation = true
 constant_force = Vector2(-100, 0)
-script = ExtResource("1_7dubb")
+script = ExtResource("1_6crwi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_la1x0")
+texture = ExtResource("2_vhb1y")
 
 [node name="Area2D" type="Area2D" parent="."]
 

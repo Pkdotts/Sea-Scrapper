@@ -11,7 +11,7 @@ enum States {MOVING, DASHING}
 @onready var animation_player = $AnimationPlayer
 @onready var effects_player = $EffectsPlayer
 @onready var bubble_spawner = $BubbleSpawner
-@onready var bubble_spawner_timer : Timer = $BubbleSpawner/Timer
+#@onready var bubble_spawner_timer : Timer = $BubbleSpawner/Timer
 
 
 
@@ -136,12 +136,12 @@ func start_dash():
 	spawn_bubbles()
 
 func spawn_bubbles():
-	bubble_spawner_timer.stop()
+	#bubble_spawner_timer.stop()
 	var bubbles_spawned = 6.0
 	for i in bubbles_spawned:
 		await get_tree().create_timer(0.04).timeout
 		bubble_spawner.spawn_bubble(int((i / bubbles_spawned)  * 3))
-	bubble_spawner_timer.start(0.0)
+	#bubble_spawner_timer.start(0.0)
 
 func stop_dashing():
 	if state == States.DASHING:

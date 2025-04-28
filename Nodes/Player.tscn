@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cogmw4gq30lkk" path="res://Graphics/Characters/Player.png" id="2_nxee5"]
 [ext_resource type="PackedScene" uid="uid://qf8er53c01bo" path="res://Nodes/Gun.tscn" id="2_wtlec"]
 [ext_resource type="PackedScene" uid="uid://dku8uc58tn2pw" path="res://Nodes/Bullets/PlayerBullets/ChargeShot.tscn" id="3_s6v37"]
-[ext_resource type="PackedScene" uid="uid://dr1ey23318mv1" path="res://Nodes/Bullets/PlayerBullets/PlayerBullet.tscn" id="3_uudy6"]
+[ext_resource type="PackedScene" uid="uid://dr1ey23318mv1" path="res://Nodes/Effects/PlayerBullet.tscn" id="3_uudy6"]
 [ext_resource type="PackedScene" uid="uid://b0to6b6rvc7oc" path="res://Nodes/MeleeAttack.tscn" id="4_r30v1"]
 [ext_resource type="Material" uid="uid://bqmu8g5akxawm" path="res://Shaders/Flash.tres" id="5_ecp3h"]
 [ext_resource type="PackedScene" uid="uid://cp48b2nhwb7ih" path="res://Nodes/Effects/AfterImageCreator.tscn" id="6_hrew7"]
@@ -200,7 +200,6 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_ecp3h"]
 resource_name = "Flash"
-length = 1.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -341,17 +340,14 @@ bullet = ExtResource("9_ecp3h")
 metadata/_custom_type_script = "uid://duu7eqorvs2st"
 
 [node name="BubbleSpawner" type="Node2D" parent="."]
-position = Vector2(4, -1)
 script = ExtResource("8_7geyq")
+auto_spawn = true
+timer_wait_time = 1.0
 bullet = ExtResource("9_ecp3h")
 metadata/_custom_type_script = "uid://duu7eqorvs2st"
-
-[node name="Timer" type="Timer" parent="BubbleSpawner"]
-autostart = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
-[connection signal="timeout" from="BubbleSpawner/Timer" to="BubbleSpawner" method="spawn_bullet"]
 
 [editable path="MeleeAttack"]

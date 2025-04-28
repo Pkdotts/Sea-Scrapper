@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx4wkq1qppqbh"]
+
+[ext_resource type="SpriteFrames" uid="uid://sv1cyxxiw0r" path="res://Graphics/Effects/Explosions.tres" id="1_1d7or"]
+[ext_resource type="Script" uid="uid://dymcqnkdbv2kt" path="res://Nodes/Effects/Explosion.gd" id="2_cm4rj"]
+
+[node name="Explosion" type="AnimatedSprite2D"]
+sprite_frames = ExtResource("1_1d7or")
+animation = &"Explosion"
+offset = Vector2(7, 0)
+script = ExtResource("2_cm4rj")
+start_anim = "Explosion"

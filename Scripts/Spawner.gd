@@ -18,4 +18,8 @@ func spawn_object(object: PackedScene) -> Node2D:
 		new_parent.add_child(new_object)
 		new_object.set_global_position(global_position)
 		return new_object
+	if object == null:
+		print("Your object is null!")
+	if new_parent == null:
+		print("Your parent is null!")
 	return null

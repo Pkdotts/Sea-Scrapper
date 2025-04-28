@@ -25,7 +25,7 @@ void fragment() {
 [resource]
 resource_local_to_scene = true
 shader = SubResource("13")
-shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_color = Color(0, 0.596078, 0.964706, 1)
 shader_parameter/glow_color = Color(1, 1, 1, 1)
 shader_parameter/flash_modifier = 0.0
 shader_parameter/glow_modifier = 0.0

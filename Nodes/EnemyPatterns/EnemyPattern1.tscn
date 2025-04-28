@@ -7,16 +7,16 @@
 script = ExtResource("1_3e2mg")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(128, 92)
-scale = Vector2(12.8, 9.2)
+position = Vector2(112, 92)
+scale = Vector2(11.2, 9.2)
 
 [node name="Enemy" parent="." instance=ExtResource("1_mug4v")]
-position = Vector2(152, 32)
+position = Vector2(136, 32)
 
 [node name="Enemy2" parent="." instance=ExtResource("1_mug4v")]
-position = Vector2(88, 88)
+position = Vector2(72, 88)
 
 [node name="Enemy3" parent="." instance=ExtResource("1_mug4v")]
-position = Vector2(152, 152)
+position = Vector2(136, 152)
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -8,11 +8,14 @@ enum States {MOVING, DYING}
 @export var timer_before_shooting = 1.0
 @export var repeat_shot = false
 
+@onready var anim_player = $AnimationPlayer
 @onready var FlashPlayer = $FlashPlayer
 @onready var Sprite = $Sprite2D
 @onready var ScrapSpawner = $ScrapSpawner
 @onready var bullet_pattern = $BulletPattern
+@onready var explosion_spawner = $ExplosionSpawner
 @onready var visibility_notifier = $VisibleOnScreenNotifier2D
+
 
 var death_sfx = preload("res://Sound/SFX/metal_pipe.mp3")
 
@@ -26,6 +29,9 @@ const MOVESPEED = 1000
 var state = States.MOVING
 
 var meleed = false
+
+func _ready() -> void:
+	anim_player.play("Idle")
 
 func _physics_process(delta: float) -> void:
 	match state:
@@ -74,13 +80,14 @@ func is_vulnerable() -> bool:
 func start_dying(knockback) -> void:
 	AudioManager.play_sfx(death_sfx, "melee")
 	AudioManager.set_sfx_pitch("melee", randf_range(0.95, 1.1))
+	explosion_spawner.spawn_items()
 	await get_tree().create_timer(0.12).timeout
 	state = States.DYING
 	velocity = Vector2(knockback, 0)
 
 func die() -> void:
 	if meleed:
-		ScrapSpawner.spawn_scraps()
+		ScrapSpawner.spawn_items()
 	queue_free()
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
