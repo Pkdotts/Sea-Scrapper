@@ -28,6 +28,11 @@ func set_audio_pitch(speed):
 	for soundEffect in $Sfx.get_children():
 		soundEffect.pitch_scale = speed
 
+func set_sfx_pitch(name, pitch):
+	var sfx_node: AudioStreamPlayer = get_sfx(name)
+	if sfx_node:
+		sfx_node.pitch_scale = pitch
+
 func add_sfx(stream, name) -> AudioStreamPlayer:
 	var sfx_node: AudioStreamPlayer = get_sfx(name)
 	if !sfx_node:
@@ -35,6 +40,7 @@ func add_sfx(stream, name) -> AudioStreamPlayer:
 		sfx_node.bus = "SFX"
 		sfx_node.name = name
 		$Sfx.add_child(sfx_node)
+		
 	sfx_node.stream = stream
 	return sfx_node
 

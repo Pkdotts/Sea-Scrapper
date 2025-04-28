@@ -8,4 +8,4 @@ func _ready() -> void:
 
 func spawn_scraps() -> void:
 	for i in amount:
-		var new_scrap = spawn_object(scrap)
+		spawn_object(scrap)

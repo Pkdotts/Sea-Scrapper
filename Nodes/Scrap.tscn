@@ -6,7 +6,7 @@
 radius = 3.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7dubb"]
-radius = 8.0
+radius = 5.0
 
 [node name="Scrap" type="RigidBody2D"]
 collision_layer = 8
@@ -28,7 +28,7 @@ shape = SubResource("CircleShape2D_cxphb")
 offset_left = -6.0
 offset_top = -6.0
 offset_right = 6.0
-offset_bottom = 5.0
+offset_bottom = 6.0
 color = Color(0.541176, 0.207843, 0.121569, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

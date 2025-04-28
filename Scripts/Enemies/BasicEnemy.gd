@@ -4,6 +4,7 @@ class_name Enemy
 enum States {MOVING, DYING}
 
 @export var hp = 15
+@export var vulnerabilityThreshold = 10
 @export var timer_before_shooting = 1.0
 @export var repeat_shot = false
 
@@ -11,7 +12,9 @@ enum States {MOVING, DYING}
 @onready var Sprite = $Sprite2D
 @onready var ScrapSpawner = $ScrapSpawner
 @onready var bullet_pattern = $BulletPattern
+@onready var visibility_notifier = $VisibleOnScreenNotifier2D
 
+var death_sfx = preload("res://Sound/SFX/metal_pipe.mp3")
 
 const KNOCKBACKSPEED = 400
 const KNOCKBACKSPEEDMELEE = 400
@@ -19,7 +22,7 @@ const KNOCKBACKDECELERATE = 2000
 const MOVESPEED = 1000
 
 
-var vulnerabilityThreshold = 5
+
 var state = States.MOVING
 
 var meleed = false
@@ -42,8 +45,8 @@ func movement(delta):
 
 # Abstract
 func shoot():
+	await get_tree().create_timer(timer_before_shooting).timeout
 	if !is_vulnerable():
-		await get_tree().create_timer(timer_before_shooting).timeout
 		if state != States.DYING:
 			bullet_pattern.activate_bullet_spawner()
 			if repeat_shot:
@@ -69,6 +72,8 @@ func is_vulnerable() -> bool:
 	return hp <= vulnerabilityThreshold
 
 func start_dying(knockback) -> void:
+	AudioManager.play_sfx(death_sfx, "melee")
+	AudioManager.set_sfx_pitch("melee", randf_range(0.95, 1.1))
 	await get_tree().create_timer(0.12).timeout
 	state = States.DYING
 	velocity = Vector2(knockback, 0)
@@ -79,13 +84,14 @@ func die() -> void:
 	queue_free()
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	var area_groups = area.get_groups()
-	if area_groups.has("PlayerAttack") and state != States.DYING:
-		area.collide()
-		if area_groups.has("Melee") and hp <= vulnerabilityThreshold:
-			damage(vulnerabilityThreshold, area_groups)
-		else:
-			damage(area.damage, area_groups)
+	if visibility_notifier.is_on_screen():
+		var area_groups = area.get_groups()
+		if area_groups.has("PlayerAttack") and state != States.DYING:
+			area.collide()
+			if area_groups.has("Melee") and hp <= vulnerabilityThreshold:
+				damage(vulnerabilityThreshold, area_groups)
+			else:
+				damage(area.damage, area_groups)
 
 func _on_flash_player_animation_finished(anim_name: StringName) -> void:
 	if "Flash" in anim_name && hp <= vulnerabilityThreshold:

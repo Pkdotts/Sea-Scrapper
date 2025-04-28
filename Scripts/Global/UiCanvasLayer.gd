@@ -1,9 +1,26 @@
 extends CanvasLayer
 
 @onready var transition_ui = preload("res://UI/Transition.tscn")
+@onready var gamehud_ui = preload("res://UI/GameHud.tscn")
 
+var transition : Transition = null
+var gamehud : GameHud = null
 
-var transition = null
+func add_gamehud_ui():
+	erase_gamehud()
+	gamehud = gamehud_ui.instantiate()
+	add_child(gamehud)
+	
+
+func erase_gamehud():
+	if gamehud != null:
+		gamehud.queue_free()
+		gamehud = null
+
+func update_hp():
+	if gamehud != null:
+		print("ui canvas update hp")
+		gamehud.update_hp()
 
 func erase_transition():
 	if transition != null:
@@ -11,9 +28,7 @@ func erase_transition():
 		transition = null
 
 func circle_in():
-	if transition != null:
-		transition.queue_free()
-		transition = null
+	erase_transition()
 	var transitionUI = transition_ui.instantiate()
 	add_child(transitionUI)
 	transition = transitionUI

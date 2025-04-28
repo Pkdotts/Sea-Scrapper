@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpav3fkitw1na"]
+
+[ext_resource type="Script" uid="uid://0affoton7xlt" path="res://Scripts/UI/HPBar.gd" id="1_k8ekt"]
+
+[node name="HPBar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_k8ekt")
+
+[node name="HPContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 2.0
+offset_right = 73.0
+offset_bottom = 18.0
+theme_override_constants/separation = -5

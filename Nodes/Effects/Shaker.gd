@@ -35,8 +35,6 @@ func _init(object : Node2D, property : String , direction = Vector2.ONE, magnitu
 	#ignore_timescale = ignore_time
 	shakes_left = int(time / interval)
 	object.add_child(self)
-	print(shakes_left)
-	print("starting")
 
 
 func _physics_process(delta: float) -> void:
@@ -61,7 +59,6 @@ func _physics_process(delta: float) -> void:
 			
 			var new_offset = Vector2(new_side, new_side) * shake_direction * new_magnitude
 			if shake_magnitude <= 0.5 or shake_interval < 0.5:
-				print("shake_offset")
 				shaked_object.offset = new_offset
 			else:
 				var tween = shaked_object.get_tree().create_tween()

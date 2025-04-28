@@ -6,7 +6,6 @@ class_name Scrap
 const MAX_IMPULSE = 200
 const MIN_IMPULSE = 100
 
-var pop_direction = Vector2.ZERO
 
 func _ready() -> void:
 	var pop_direction = Vector2(randf_range(0.5, 1), randf_range(-0.4, 0.4)).normalized()

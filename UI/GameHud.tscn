@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cme03m3rnalcs"]
+
+[ext_resource type="PackedScene" uid="uid://bpav3fkitw1na" path="res://UI/HPBar.tscn" id="1_2wk8h"]
+[ext_resource type="Script" uid="uid://tynq8efphau1" path="res://Scripts/UI/GameHud.gd" id="1_tlt1r"]
+
+[node name="GameHud" type="CanvasLayer"]
+script = ExtResource("1_tlt1r")
+
+[node name="HPBar" parent="." instance=ExtResource("1_2wk8h")]
+offset_left = 5.0
+offset_top = 3.0
+offset_right = 86.0
+offset_bottom = 15.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bymroxacy3fuv"]
+[gd_scene load_steps=23 format=3 uid="uid://bymroxacy3fuv"]
 
 [ext_resource type="Script" uid="uid://ci5evxd4gt03l" path="res://Scripts/Player.gd" id="1_rag87"]
 [ext_resource type="Texture2D" uid="uid://cogmw4gq30lkk" path="res://Graphics/Characters/Player.png" id="2_nxee5"]
@@ -6,10 +6,107 @@
 [ext_resource type="PackedScene" uid="uid://dku8uc58tn2pw" path="res://Nodes/Bullets/PlayerBullets/ChargeShot.tscn" id="3_s6v37"]
 [ext_resource type="PackedScene" uid="uid://dr1ey23318mv1" path="res://Nodes/Bullets/PlayerBullets/PlayerBullet.tscn" id="3_uudy6"]
 [ext_resource type="PackedScene" uid="uid://b0to6b6rvc7oc" path="res://Nodes/MeleeAttack.tscn" id="4_r30v1"]
+[ext_resource type="Material" uid="uid://bqmu8g5akxawm" path="res://Shaders/Flash.tres" id="5_ecp3h"]
 [ext_resource type="PackedScene" uid="uid://cp48b2nhwb7ih" path="res://Nodes/Effects/AfterImageCreator.tscn" id="6_hrew7"]
+[ext_resource type="Script" uid="uid://duu7eqorvs2st" path="res://Scripts/BubbleSpawner.gd" id="8_7geyq"]
+[ext_resource type="PackedScene" uid="uid://clkaw58ubcibl" path="res://Nodes/Effects/Bubble.tscn" id="9_ecp3h"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s6v37"]
+radius = 12.0
+height = 29.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gi4ye"]
 radius = 16.0312
+
+[sub_resource type="Animation" id="Animation_7geyq"]
+resource_name = "Attack"
+length = 0.33334
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeleeAttack/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [true],
+"method": &"set_attacking"
+}, {
+"args": [false],
+"method": &"set_attacking"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AttackBubbleSpawner:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0666667, 0.0833334, 0.116667, 0.15, 0.183333, 0.216667, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(13, 25), Vector2(27, 20), Vector2(35, 9), Vector2(31, -6), Vector2(17, -14), Vector2(3, -16), Vector2(-6, -16)]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AttackBubbleSpawner")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.0666667, 0.0833333, 0.116667, 0.15, 0.183333, 0.216667, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [0],
+"method": &"spawn_bubble"
+}, {
+"args": [0],
+"method": &"spawn_bubble"
+}, {
+"args": [0],
+"method": &"spawn_bubble"
+}, {
+"args": [1],
+"method": &"spawn_bubble"
+}, {
+"args": [1],
+"method": &"spawn_bubble"
+}, {
+"args": [2],
+"method": &"spawn_bubble"
+}, {
+"args": [2],
+"method": &"spawn_bubble"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_r1qq6"]
 resource_name = "Idle"
@@ -27,39 +124,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [1, 0]
-}
-
-[sub_resource type="Animation" id="Animation_dy10h"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_s6v37"]
-resource_name = "MoveForward"
-length = 0.333342
-loop_mode = 1
-step = 0.0833333
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.166667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [4, 5]
 }
 
 [sub_resource type="Animation" id="Animation_05ma0"]
@@ -80,16 +144,146 @@ tracks/0/keys = {
 "values": [2, 3]
 }
 
+[sub_resource type="Animation" id="Animation_s6v37"]
+resource_name = "MoveForward"
+length = 0.333342
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_dy10h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeleeAttack/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p7yoa"]
 _data = {
+&"Attack": SubResource("Animation_7geyq"),
 &"Idle": SubResource("Animation_r1qq6"),
 &"MoveBackwards": SubResource("Animation_05ma0"),
 &"MoveForward": SubResource("Animation_s6v37"),
 &"RESET": SubResource("Animation_dy10h")
 }
 
+[sub_resource type="Animation" id="Animation_ecp3h"]
+resource_name = "Flash"
+length = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 0.133333, 0.2, 0.266667, 0.333333, 0.433333, 0.533333, 0.633333, 0.733333, 0.866667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/flash_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(0.968627, 0.270588, 0.192157, 1), Color(0.0901961, 0.101961, 0.164706, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:material:shader_parameter/flash_modifier")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_8mg02"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/flash_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:material:shader_parameter/flash_modifier")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_23xfg"]
+_data = {
+&"Flash": SubResource("Animation_ecp3h"),
+&"RESET": SubResource("Animation_8mg02")
+}
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_s6v37"]
-radius = 8.0
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 motion_mode = 1
@@ -101,11 +295,17 @@ charge_shot = ExtResource("3_s6v37")
 bullet = ExtResource("3_uudy6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("5_ecp3h")
 texture = ExtResource("2_nxee5")
-hframes = 6
+hframes = 5
+vframes = 2
 
 [node name="MeleeAttack" parent="." instance=ExtResource("4_r30v1")]
 position = Vector2(10, 0)
+
+[node name="CollisionShape2D" parent="MeleeAttack" index="0"]
+position = Vector2(12, 2.5)
+shape = SubResource("CapsuleShape2D_s6v37")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_gi4ye")
@@ -115,8 +315,13 @@ libraries = {
 &"": SubResource("AnimationLibrary_p7yoa")
 }
 
+[node name="EffectsPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_23xfg")
+}
+
 [node name="DashTimer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.15
 one_shot = true
 
 [node name="AfterImageCreator" parent="." instance=ExtResource("6_hrew7")]
@@ -129,5 +334,24 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_s6v37")
 
+[node name="AttackBubbleSpawner" type="Node2D" parent="."]
+position = Vector2(-6, -16)
+script = ExtResource("8_7geyq")
+bullet = ExtResource("9_ecp3h")
+metadata/_custom_type_script = "uid://duu7eqorvs2st"
+
+[node name="BubbleSpawner" type="Node2D" parent="."]
+position = Vector2(4, -1)
+script = ExtResource("8_7geyq")
+bullet = ExtResource("9_ecp3h")
+metadata/_custom_type_script = "uid://duu7eqorvs2st"
+
+[node name="Timer" type="Timer" parent="BubbleSpawner"]
+autostart = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="timeout" from="BubbleSpawner/Timer" to="BubbleSpawner" method="spawn_bullet"]
+
+[editable path="MeleeAttack"]

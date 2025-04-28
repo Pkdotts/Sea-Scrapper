@@ -1,35 +1,148 @@
-[gd_scene load_steps=4 format=3 uid="uid://nxm5py8srpxd"]
+[gd_scene load_steps=20 format=3 uid="uid://nxm5py8srpxd"]
 
+[ext_resource type="Shader" uid="uid://bgehh20x66g1q" path="res://Shaders/ScrollingTexture.gdshader" id="1_01o2i"]
 [ext_resource type="PackedScene" uid="uid://bymroxacy3fuv" path="res://Nodes/Player.tscn" id="1_rujj4"]
-[ext_resource type="PackedScene" uid="uid://cm4qm7klpesq6" path="res://Nodes/Enemies/Enemy.tscn" id="2_acudx"]
-[ext_resource type="Script" uid="uid://drq565n5jsvn4" path="res://Scripts/Mover.gd" id="2_bmafo"]
+[ext_resource type="Texture2D" uid="uid://wfh4vajtpalv" path="res://Graphics/Backgrounds/Back4.png" id="2_2wq41"]
+[ext_resource type="Texture2D" uid="uid://cr7rs0b0nv22s" path="res://Graphics/Backgrounds/Back3.png" id="3_2wq41"]
+[ext_resource type="Material" uid="uid://6lkykc5tv3y2" path="res://Shaders/ScrollingBG.tres" id="4_q2kpe"]
+[ext_resource type="Texture2D" uid="uid://bpnshxy3gjq6l" path="res://Graphics/Backgrounds/Back2.png" id="5_s1b26"]
+[ext_resource type="Texture2D" uid="uid://bvhxlpsceweu1" path="res://Graphics/Backgrounds/Back1.png" id="6_s1b26"]
+[ext_resource type="Texture2D" uid="uid://dpkwgioo0rp6f" path="res://Graphics/Backgrounds/BGDecor.png" id="7_5fmss"]
+[ext_resource type="Texture2D" uid="uid://cnye11l8mg7bb" path="res://Graphics/Backgrounds/Floor2.png" id="8_siu4q"]
+[ext_resource type="Texture2D" uid="uid://x47qw2q6sed7" path="res://Graphics/Backgrounds/Floor1.png" id="9_dn5ov"]
+[ext_resource type="Script" uid="uid://brualadq3pwpk" path="res://Scripts/EnemyPatternSpawner.gd" id="11_0ree8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u8nc6"]
+resource_local_to_scene = true
+shader = ExtResource("1_01o2i")
+shader_parameter/scrollDirection = Vector2(-1, 0)
+shader_parameter/scrollSpeed = 0.05
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y6xfl"]
+resource_local_to_scene = true
+shader = ExtResource("1_01o2i")
+shader_parameter/scrollDirection = Vector2(-1, 0)
+shader_parameter/scrollSpeed = 0.08
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ree8"]
+resource_local_to_scene = true
+shader = ExtResource("1_01o2i")
+shader_parameter/scrollDirection = Vector2(-1, 0)
+shader_parameter/scrollSpeed = 0.13
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b3018"]
+resource_local_to_scene = true
+shader = ExtResource("1_01o2i")
+shader_parameter/scrollDirection = Vector2(-1, 0)
+shader_parameter/scrollSpeed = 0.15
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7077x"]
+resource_local_to_scene = true
+shader = ExtResource("1_01o2i")
+shader_parameter/scrollDirection = Vector2(-1, 0)
+shader_parameter/scrollSpeed = 0.15
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3uhp2"]
+resource_local_to_scene = true
+shader = ExtResource("1_01o2i")
+shader_parameter/scrollDirection = Vector2(-1, 0)
+shader_parameter/scrollSpeed = 0.2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ree8"]
+size = Vector2(448, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5fmss"]
+size = Vector2(16, 196)
 
 [node name="Testing" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource("1_rujj4")]
-position = Vector2(43, 89)
+[node name="BG" type="Node2D" parent="."]
+z_index = -2
 
-[node name="Enemies" type="Node2D" parent="."]
-script = ExtResource("2_bmafo")
-speed = 25
+[node name="BG4" type="TextureRect" parent="BG"]
+material = SubResource("ShaderMaterial_u8nc6")
+offset_left = -8.0
+offset_right = 328.0
+offset_bottom = 180.0
+texture = ExtResource("2_2wq41")
+stretch_mode = 1
 
-[node name="Enemy" parent="Enemies" instance=ExtResource("2_acudx")]
-position = Vector2(336, 51)
+[node name="BG3" type="TextureRect" parent="BG"]
+material = SubResource("ShaderMaterial_y6xfl")
+offset_left = -8.0
+offset_right = 328.0
+offset_bottom = 180.0
+texture = ExtResource("3_2wq41")
+stretch_mode = 1
 
-[node name="Enemy3" parent="Enemies" instance=ExtResource("2_acudx")]
-position = Vector2(621, 76)
+[node name="BG2" type="TextureRect" parent="BG"]
+material = ExtResource("4_q2kpe")
+offset_left = -8.0
+offset_right = 328.0
+offset_bottom = 180.0
+texture = ExtResource("5_s1b26")
+stretch_mode = 1
 
-[node name="Enemy4" parent="Enemies" instance=ExtResource("2_acudx")]
-position = Vector2(465, 112)
+[node name="BG1" type="TextureRect" parent="BG"]
+material = SubResource("ShaderMaterial_0ree8")
+offset_left = -8.0
+offset_right = 328.0
+offset_bottom = 180.0
+texture = ExtResource("6_s1b26")
+stretch_mode = 1
 
-[node name="Enemy2" parent="Enemies" instance=ExtResource("2_acudx")]
-position = Vector2(387, 142)
+[node name="BGDecor" type="TextureRect" parent="BG"]
+material = SubResource("ShaderMaterial_b3018")
+offset_left = -8.0
+offset_right = 328.0
+offset_bottom = 180.0
+texture = ExtResource("7_5fmss")
+stretch_mode = 1
 
-[node name="Enemy5" parent="Enemies" instance=ExtResource("2_acudx")]
-position = Vector2(732, 53)
+[node name="Floor2" type="TextureRect" parent="BG"]
+material = SubResource("ShaderMaterial_7077x")
+offset_left = -8.0
+offset_right = 328.0
+offset_bottom = 180.0
+texture = ExtResource("8_siu4q")
+stretch_mode = 1
 
-[node name="Enemy6" parent="Enemies" instance=ExtResource("2_acudx")]
-position = Vector2(861, 114)
+[node name="Floor1" type="TextureRect" parent="BG"]
+material = SubResource("ShaderMaterial_3uhp2")
+offset_left = -8.0
+offset_right = 328.0
+offset_bottom = 180.0
+texture = ExtResource("9_dn5ov")
+stretch_mode = 1
 
-[node name="Enemy7" parent="Enemies" instance=ExtResource("2_acudx")]
-position = Vector2(783, 144)
+[node name="PlayerLayer" type="Node2D" parent="."]
+
+[node name="Player" parent="PlayerLayer" instance=ExtResource("1_rujj4")]
+position = Vector2(40, 88)
+
+[node name="EnemyPatternSpawner" type="Node2D" parent="."]
+position = Vector2(256, 0)
+script = ExtResource("11_0ree8")
+metadata/_custom_type_script = "uid://brualadq3pwpk"
+
+[node name="VerticalCollisions" type="StaticBody2D" parent="."]
+collision_layer = 9
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VerticalCollisions"]
+position = Vector2(208, -16)
+shape = SubResource("RectangleShape2D_0ree8")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="VerticalCollisions"]
+position = Vector2(208, 192)
+shape = SubResource("RectangleShape2D_0ree8")
+
+[node name="SideCollisions" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SideCollisions"]
+position = Vector2(-16, 88)
+shape = SubResource("RectangleShape2D_5fmss")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="SideCollisions"]
+position = Vector2(336, 90)
+shape = SubResource("RectangleShape2D_5fmss")
