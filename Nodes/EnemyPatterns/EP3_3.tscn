@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dou4uwbeh2vjj"]
+
+[ext_resource type="Script" uid="uid://drq565n5jsvn4" path="res://Scripts/Mover.gd" id="1_vk32t"]
+[ext_resource type="PackedScene" uid="uid://eqp0h8vmi7va" path="res://Nodes/Enemies/RoboSquid.tscn" id="3_7d1uy"]
+
+[node name="EnemyPattern" type="Node2D"]
+script = ExtResource("1_vk32t")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(64, 92)
+scale = Vector2(6.4, 9.2)
+
+[node name="RoboSquid" parent="." instance=ExtResource("3_7d1uy")]
+position = Vector2(0, 88)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

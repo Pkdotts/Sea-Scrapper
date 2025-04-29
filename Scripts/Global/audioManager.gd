@@ -40,9 +40,12 @@ func add_sfx(stream, name) -> AudioStreamPlayer:
 		sfx_node.bus = "SFX"
 		sfx_node.name = name
 		$Sfx.add_child(sfx_node)
-		
+		sfx_node.finished.connect(sfx_node.queue_free)
 	sfx_node.stream = stream
 	return sfx_node
+
+func get_number_of_sfx() -> int:
+	return $Sfx.get_child_count()
 
 func play_sfx(stream, name):
 	var sfx_node: AudioStreamPlayer = add_sfx(stream, name)

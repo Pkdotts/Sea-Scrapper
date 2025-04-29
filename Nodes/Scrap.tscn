@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://c4bkrltdqfd62" path="res://Graphics/Collectables/Scrap.png" id="2_la1x0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cxphb"]
-radius = 3.0
+radius = 13.0384
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7dubb"]
-radius = 5.0
+radius = 6.0
 
 [node name="Scrap" type="RigidBody2D"]
 collision_layer = 8

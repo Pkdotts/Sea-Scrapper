@@ -16,10 +16,13 @@ func get_right_end_position() -> float:
 func _process(delta: float) -> void:
 	position += direction * speed * delta
 	
-	if !passed and get_parent().global_position.x > get_right_end_position():
+	if !passed and (get_child_count() <= 1 or get_parent().global_position.x > get_right_end_position()):
 		passed = true
+		Global.add_level()
 		print("passed")
 		passed_parent.emit()
+		if get_child_count() <= 1:
+			queue_free()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()

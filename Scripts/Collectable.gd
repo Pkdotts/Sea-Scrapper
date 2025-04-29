@@ -13,3 +13,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if global_position.x < -50:
 		queue_free()
+
+func collect(collector: Node2D):
+	queue_free()
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.get_groups().has("Player"):
+		collect(body)

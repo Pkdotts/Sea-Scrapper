@@ -1,15 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://ognrw56p3tyd"]
 
-[ext_resource type="Script" uid="uid://cqi5ehgal3w54" path="res://Scripts/Scrap.gd" id="1_6crwi"]
-[ext_resource type="Texture2D" uid="uid://c4bkrltdqfd62" path="res://Graphics/Collectables/Scrap.png" id="2_vhb1y"]
+[ext_resource type="Script" uid="uid://2h7fc2jwrmd4" path="res://Scripts/YumFish.gd" id="1_6crwi"]
+[ext_resource type="Texture2D" uid="uid://g8n7w2kp31fw" path="res://Graphics/UI/HPFish.png" id="2_6crwi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cxphb"]
-radius = 3.0
+radius = 14.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7dubb"]
-radius = 5.0
+radius = 7.0
 
-[node name="Scrap" type="RigidBody2D"]
+[node name="YumFish" type="RigidBody2D"]
 collision_layer = 8
 collision_mask = 8
 mass = 3.639
@@ -19,7 +19,7 @@ constant_force = Vector2(-100, 0)
 script = ExtResource("1_6crwi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_vhb1y")
+texture = ExtResource("2_6crwi")
 
 [node name="Area2D" type="Area2D" parent="."]
 

@@ -9,6 +9,7 @@
 radius = 5.0
 
 [node name="ChargeShot" type="Area2D" groups=["Bullet", "PlayerAttack"]]
+scale = Vector2(4, 4)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_hg3oo")
@@ -24,7 +25,6 @@ shape = SubResource("CircleShape2D_pcwuu")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(3, 3)
 sprite_frames = ExtResource("2_polvl")
 animation = &"PlayerBullet"
 

@@ -8,9 +8,11 @@ var full = true
 func add():
 	if !full:
 		full = true
+		anim_player.stop()
 		anim_player.play("Add")
 
 func remove():
 	if full:
 		full = false
+		anim_player.stop()
 		anim_player.play("Remove")

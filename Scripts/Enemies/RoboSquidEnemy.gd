@@ -1,20 +1,19 @@
 extends ShootingEnemy
 class_name RoboSquid
 
+@export var speed_multiplier = 1.0
 const AMPLITUDE = 32.0
 const SPEED = 1
 const MOVE_SPEED = 40.0
-var og_time : float = 0.0
 var og_pos_y : float
 
 func _ready() -> void:
 	super._ready()
 	og_pos_y = global_position.y
-	og_time = Time.get_ticks_msec() / 1000.0
 
 # Override
 func movement(delta):
-	global_position.y = cos(Time.get_ticks_msec() / 1000.0 * SPEED + og_time) * AMPLITUDE + og_pos_y 
+	global_position.y = speed_multiplier * cos(Time.get_ticks_msec() / 1000.0 * SPEED) * AMPLITUDE + og_pos_y 
 
 func shoot():
 	if state != States.DYING:

@@ -19,9 +19,9 @@ const NORMALSPEED = 6400.0
 const DASHSPEED = 19000
 const DECELERATION = 60000
 
-var charge = 5
-var charge_step = 5
-var max_charge = 15
+var charge = 0
+var charge_step = 8
+const MAXCHARGE = 24
 
 var gun_timer = 0
 var gun_interval_time = 0.2
@@ -32,18 +32,21 @@ var inputVector = Vector2.ZERO
 var speed = NORMALSPEED
 var paused = false
 var attacking = false
+var damaging = false
 var state = States.MOVING
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 
 func _ready() -> void:
 	if OS.is_debug_build() and UiCanvasLayer.gamehud == null:
 		UiCanvasLayer.add_gamehud_ui()
+	Global.persistPlayer = self
 
 func _physics_process(delta):
 	match state:
 		States.MOVING:
 			move_state(delta)
 			attacks(delta)
+			damage()
 		States.DASHING:
 			dash_state(delta)
 
@@ -73,21 +76,21 @@ func attacks(delta):
 			if Input.is_action_just_pressed("ui_select") and charge >= charge_step:
 				charge -= charge_step
 				gun.spawn_charge_shot()
+				UiCanvasLayer.update_scrap_bar(0.4)
 				print("Big Shot")
+				
 	if Input.is_action_just_released("ui_accept"):
 		gun_timer = 0
 
 func add_scraps(amount):
-	charge = min(charge + amount, max_charge)
+	charge = min(charge + amount, MAXCHARGE)
+	UiCanvasLayer.update_scrap_bar()
 
 func controls():
 	if !paused:
 		inputVector = ControlsManager.get_controls_vector(false)
 		if inputVector != Vector2.ZERO:
 			direction = inputVector
-
-
-
 
 ### MOVEMENT 
 
@@ -109,24 +112,23 @@ func dash_state(delta):
 	move(direction, speed, delta)
 
 func move(dir, spd, delta):
-	if !paused:
-		var oldPos = position
-		velocity = dir * spd * delta
-		move_and_slide()
-		if position.round() == oldPos.round():
-			position = position.round()
-		
-		if animation_player.current_animation != "Attack":
-			if oldPos.x < position.x:
-				animation_player.play("MoveForward")
-			elif oldPos.x > position.x:
-				animation_player.play("MoveBackwards")
-			elif oldPos.y < position.y:
-				animation_player.play("MoveForward")
-			elif oldPos.y > position.y:
-				animation_player.play("MoveBackwards")
-			else:
-				animation_player.play("Idle")
+	var oldPos = position
+	velocity = dir * spd * delta
+	move_and_slide()
+	if position.round() == oldPos.round():
+		position = position.round()
+	
+	if animation_player.current_animation != "Attack":
+		if oldPos.x < position.x:
+			animation_player.play("MoveForward")
+		elif oldPos.x > position.x:
+			animation_player.play("MoveBackwards")
+		elif oldPos.y < position.y:
+			animation_player.play("MoveForward")
+		elif oldPos.y > position.y:
+			animation_player.play("MoveBackwards")
+		else:
+			animation_player.play("Idle")
 
 func start_dash():
 	DashTimer.start()
@@ -147,30 +149,38 @@ func stop_dashing():
 	if state == States.DASHING:
 		state = States.MOVING
 
-
 func _on_dash_timer_timeout() -> void:
 	stop_dashing()
+
+func flash():
+	effects_player.play("Flash")
 
 # Getting Damaged
 
 func damage():
-	Global.add_hp(-1)
-	effects_player.play("Flash")
-	AfterImageCreator.stop_creating()
-	Shaker.new(sprite, "offset", Vector2(1, 0), 3, 0.4, 0.04, Vector2(2, 0.5))
-	Slowmo.start_slowmo(0.5, 0.2)
-	if Global.player_hp <= 0:
-		queue_free()
+	if damaging and !effects_player.current_animation == "Damage":
+		Global.add_hp(-1)
+		effects_player.play("Damage")
+		AfterImageCreator.stop_creating()
+		Shaker.new(sprite, "offset", Vector2(1, 0), 3, 0.4, 0.04, Vector2(2, 0.5))
+		Slowmo.start_slowmo(0.5, 0.2)
+		if Global.player_hp <= 0:
+			queue_free()
 
 func hit_pause(time):
+	animation_player.speed_scale = 0
 	await get_tree().create_timer(time).timeout
-	animation_player.play()
+	animation_player.speed_scale = 1
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if area.get_groups().has("EnemyAttack") and state != States.DASHING and !effects_player.is_playing():
+	if area.get_groups().has("EnemyAttack") and state != States.DASHING:
 		if area.has_method("collide"):
 			area.collide()
-		damage()
+		damaging = true
+
+func _on_hitbox_area_exited(area: Area2D) -> void:
+	if area.get_groups().has("EnemyAttack"):
+		damaging = false
 
 func set_attacking(enabled: bool):
 	attacking = enabled

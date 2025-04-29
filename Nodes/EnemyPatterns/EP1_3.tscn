@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dscxtyue7q23x"]
+
+[ext_resource type="Script" uid="uid://drq565n5jsvn4" path="res://Scripts/Mover.gd" id="1_mevbn"]
+[ext_resource type="PackedScene" uid="uid://cm4qm7klpesq6" path="res://Nodes/Enemies/RoboFish.tscn" id="2_2mo6l"]
+
+[node name="EnemyPattern" type="Node2D"]
+script = ExtResource("1_mevbn")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(64, 92)
+scale = Vector2(6.4, 9.2)
+
+[node name="Enemy" parent="." instance=ExtResource("2_2mo6l")]
+position = Vector2(0, 120)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

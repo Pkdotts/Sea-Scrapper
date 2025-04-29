@@ -10,9 +10,10 @@ enum States {MOVING, DYING}
 @onready var FlashPlayer : AnimationPlayer = $FlashPlayer
 @onready var Sprite : Sprite2D = $Sprite2D
 @onready var ScrapSpawner : ItemSpawner = $ScrapSpawner
+@onready var fish_spawner : ItemSpawner = $FishSpawner
 @onready var explosion_spawner : ItemSpawner = $ExplosionSpawner
 @onready var visibility_notifier : VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
-
+@onready var hitbox = $Hitbox
 
 var death_sfx = preload("res://Sound/SFX/metal_pipe.mp3")
 
@@ -67,16 +68,31 @@ func is_vulnerable() -> bool:
 	return hp <= vulnerabilityThreshold
 
 func start_dying(knockback) -> void:
-	AudioManager.play_sfx(death_sfx, "melee")
-	AudioManager.set_sfx_pitch("melee", randf_range(0.95, 1.1))
+	var sfx_name = "melee" + str(AudioManager.get_number_of_sfx())
+	print(sfx_name)
+	AudioManager.play_sfx(death_sfx, sfx_name)
+	AudioManager.set_sfx_pitch(sfx_name , randf_range(0.95, 1.1))
 	explosion_spawner.spawn_items()
+	create_bubble_explosion()
+	hitbox.queue_free()
 	await get_tree().create_timer(0.12).timeout
 	state = States.DYING
 	velocity = Vector2(knockback, 0)
 
+func create_bubble_explosion():
+	var bubble_explosion = ItemSpawner.new()
+	bubble_explosion.item = preload("res://Nodes/Effects/Bubble.tscn")
+	bubble_explosion.amount = 6
+	bubble_explosion.interval = 0.025
+	bubble_explosion.random_spawn_size = Vector2(10, 10)
+	self.add_child(bubble_explosion)
+	bubble_explosion.call_deferred("spawn_items")
+
 func die() -> void:
-	if meleed:
-		ScrapSpawner.spawn_items()
+	if !meleed:
+		ScrapSpawner.amount = 1
+	ScrapSpawner.spawn_items()
+	fish_spawner.spawn_items()
 	queue_free()
 
 func _on_hitbox_area_entered(area: Area2D) -> void:

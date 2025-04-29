@@ -22,6 +22,11 @@ func update_hp():
 		print("ui canvas update hp")
 		gamehud.update_hp()
 
+func update_scrap_bar(time: float = 0.1):
+	if gamehud != null:
+		print("ui canvas update bar")
+		gamehud.update_bar(time)
+
 func erase_transition():
 	if transition != null:
 		transition.queue_free()

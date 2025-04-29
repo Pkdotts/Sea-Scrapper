@@ -1,18 +1,18 @@
-[gd_scene load_steps=19 format=3 uid="uid://cm4qm7klpesq6"]
+[gd_scene load_steps=19 format=3 uid="uid://b1lbwy6reate"]
 
-[ext_resource type="Script" uid="uid://ctpvm2olx0he8" path="res://Scripts/Enemies/BasicEnemy.gd" id="1_wqu7i"]
-[ext_resource type="Material" uid="uid://bqmu8g5akxawm" path="res://Shaders/Flash.tres" id="2_t8im6"]
-[ext_resource type="Texture2D" uid="uid://byuvlr5ujd1ib" path="res://Graphics/Enemies/RoboFish.png" id="3_wvlou"]
-[ext_resource type="Script" uid="uid://s3ysfh7um7ev" path="res://Scripts/BulletSpawner.gd" id="4_d3lls"]
-[ext_resource type="PackedScene" uid="uid://diythvtq5ea55" path="res://Nodes/Enemies/EnemyFlashPlayer.tscn" id="4_wvlou"]
-[ext_resource type="PackedScene" uid="uid://b8p14fnn4k01l" path="res://Nodes/Bullets/EnemyBullets/EnemyBullet.tscn" id="5_mgv6j"]
-[ext_resource type="Script" uid="uid://5stk1gvpktyg" path="res://Scripts/BulletPattern.gd" id="6_n6lyr"]
-[ext_resource type="Script" uid="uid://bcj1fhoji58bm" path="res://Scripts/ItemSpawner.gd" id="7_eflu6"]
-[ext_resource type="PackedScene" uid="uid://dx4wkq1qppqbh" path="res://Nodes/Effects/Explosion.tscn" id="8_pkc57"]
-[ext_resource type="PackedScene" uid="uid://bmgevjgtkjqw5" path="res://Nodes/Scrap.tscn" id="9_x2366"]
-[ext_resource type="Script" uid="uid://duu7eqorvs2st" path="res://Scripts/BubbleSpawner.gd" id="10_b2xxv"]
-[ext_resource type="PackedScene" uid="uid://ognrw56p3tyd" path="res://Nodes/YumFish.tscn" id="10_t8im6"]
-[ext_resource type="PackedScene" uid="uid://clkaw58ubcibl" path="res://Nodes/Effects/Bubble.tscn" id="11_xf8sp"]
+[ext_resource type="Script" uid="uid://ctpvm2olx0he8" path="res://Scripts/Enemies/BasicEnemy.gd" id="1_wjiom"]
+[ext_resource type="Material" uid="uid://bqmu8g5akxawm" path="res://Shaders/Flash.tres" id="2_xb7jo"]
+[ext_resource type="Texture2D" uid="uid://ccovi0b8fd1ad" path="res://Graphics/Enemies/RoboFishTiny.png" id="3_wjiom"]
+[ext_resource type="PackedScene" uid="uid://diythvtq5ea55" path="res://Nodes/Enemies/EnemyFlashPlayer.tscn" id="4_xb7jo"]
+[ext_resource type="Script" uid="uid://s3ysfh7um7ev" path="res://Scripts/BulletSpawner.gd" id="4_xx1jx"]
+[ext_resource type="PackedScene" uid="uid://b8p14fnn4k01l" path="res://Nodes/Bullets/EnemyBullets/EnemyBullet.tscn" id="5_h6l1x"]
+[ext_resource type="Script" uid="uid://5stk1gvpktyg" path="res://Scripts/BulletPattern.gd" id="6_jg5on"]
+[ext_resource type="Script" uid="uid://bcj1fhoji58bm" path="res://Scripts/ItemSpawner.gd" id="7_03ujo"]
+[ext_resource type="PackedScene" uid="uid://dx4wkq1qppqbh" path="res://Nodes/Effects/Explosion.tscn" id="8_oojqe"]
+[ext_resource type="PackedScene" uid="uid://bmgevjgtkjqw5" path="res://Nodes/Scrap.tscn" id="9_lgqiv"]
+[ext_resource type="PackedScene" uid="uid://ognrw56p3tyd" path="res://Nodes/YumFish.tscn" id="10_oj3gs"]
+[ext_resource type="Script" uid="uid://duu7eqorvs2st" path="res://Scripts/BubbleSpawner.gd" id="11_biusf"]
+[ext_resource type="PackedScene" uid="uid://clkaw58ubcibl" path="res://Nodes/Effects/Bubble.tscn" id="12_ms334"]
 
 [sub_resource type="Animation" id="Animation_wc4c6"]
 resource_name = "Idle"
@@ -54,25 +54,24 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wc4c6"]
-radius = 11.0
+radius = 5.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ekvrh"]
-radius = 11.0
+radius = 5.0
 
-[node name="RoboFish" type="CharacterBody2D"]
+[node name="RoboFishTiny" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 2
-script = ExtResource("1_wqu7i")
-hp = 10
-vulnerabilityThreshold = 7
+script = ExtResource("1_wjiom")
+hp = 1
+vulnerabilityThreshold = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = ExtResource("2_t8im6")
-position = Vector2(-1, -1)
-texture = ExtResource("3_wvlou")
+material = ExtResource("2_xb7jo")
+texture = ExtResource("3_wjiom")
 hframes = 2
 
-[node name="FlashPlayer" parent="." instance=ExtResource("4_wvlou")]
+[node name="FlashPlayer" parent="." instance=ExtResource("4_xb7jo")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -93,49 +92,46 @@ shape = SubResource("CircleShape2D_ekvrh")
 
 [node name="BulletSpawner" type="Node2D" parent="."]
 position = Vector2(-5, 0)
-script = ExtResource("4_d3lls")
-bullet = ExtResource("5_mgv6j")
+script = ExtResource("4_xx1jx")
+bullet = ExtResource("5_h6l1x")
 metadata/_custom_type_script = "uid://s3ysfh7um7ev"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(1.43051e-06, -4.76837e-07)
-scale = Vector2(2.4, 0.8)
+position = Vector2(-2.38419e-07, 0)
+scale = Vector2(1.6, 0.8)
 
 [node name="BulletPattern" type="Node" parent="."]
-script = ExtResource("6_n6lyr")
+script = ExtResource("6_jg5on")
 bullet_amount = 1
 bullet_interval = 0.2
 bullet_spawner = NodePath("../BulletSpawner")
 metadata/_custom_type_script = "uid://5stk1gvpktyg"
 
 [node name="ExplosionSpawner" type="Node2D" parent="."]
-position = Vector2(10, 0)
-script = ExtResource("7_eflu6")
-item = ExtResource("8_pkc57")
-amount = 3
-interval = 0.04
-random_spawn_size = Vector2(5, 10)
+position = Vector2(8, 0)
+script = ExtResource("7_03ujo")
+item = ExtResource("8_oojqe")
+random_spawn_size = Vector2(2, 5)
 metadata/_custom_type_script = "uid://bcj1fhoji58bm"
 
 [node name="ScrapSpawner" type="Node2D" parent="."]
-script = ExtResource("7_eflu6")
-item = ExtResource("9_x2366")
-amount = 3
+script = ExtResource("7_03ujo")
+item = ExtResource("9_lgqiv")
 metadata/_custom_type_script = "uid://bcj1fhoji58bm"
 
 [node name="FishSpawner" type="Node2D" parent="."]
-script = ExtResource("7_eflu6")
-item = ExtResource("10_t8im6")
+script = ExtResource("7_03ujo")
+item = ExtResource("10_oj3gs")
 spawn_chance = 0.2
 player_health_chance_mod = 0.06
 metadata/_custom_type_script = "uid://bcj1fhoji58bm"
 
 [node name="BubbleSpawner" type="Node2D" parent="."]
-script = ExtResource("10_b2xxv")
+script = ExtResource("11_biusf")
 auto_spawn = true
 timer_wait_time = 1.0
 random_spawn_start = true
-bullet = ExtResource("11_xf8sp")
+bullet = ExtResource("12_ms334")
 metadata/_custom_type_script = "uid://duu7eqorvs2st"
 
 [connection signal="animation_finished" from="FlashPlayer" to="." method="_on_flash_player_animation_finished"]

@@ -4,7 +4,6 @@ extends Sprite2D
 
 func _ready():
 	anim_player.play("Fadeout")
-	print("hiii")
 
 func set_new_texture(sprite):
 	texture = sprite.texture
