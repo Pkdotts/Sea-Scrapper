@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 WindowManager="*res://Scripts/Global/WindowManager.gd"
-Spawning="*res://addons/BulletUpHell/Spawning.tscn"
 UiCanvasLayer="*res://Scripts/Global/UiCanvasLayer.tscn"
 ControlsManager="*res://Scripts/Global/controlsManager.tscn"
 AudioManager="*res://Scripts/Global/audioManager.tscn"
@@ -33,7 +32,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/BulletUpHell/plugin.cfg")
+enabled=PackedStringArray()
 
 [global_group]
 
@@ -42,6 +41,7 @@ PlayerAttack=""
 Melee=""
 EnemyAttack=""
 Player=""
+Collectable=""
 
 [input]
 

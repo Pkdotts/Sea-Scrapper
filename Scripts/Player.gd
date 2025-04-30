@@ -56,14 +56,19 @@ func _input(event):
 
 func attacks(delta):
 	if !attacking and !paused:
+		if Input.is_action_pressed("ui_vacuum") and !gun.sucking:
+			gun.activate_vaccuum()
+		if Input.is_action_just_released("ui_vacuum"):
+			gun.deactivate_vaccuum()
 		if Input.is_action_just_pressed("ui_cancel"):
 			animation_player.stop()
 			animation_player.play("Attack")
+			gun.deactivate_vaccuum()
 			attacking = true
 			gun_timer = 0
 			
 		# Shooting
-		if animation_player.current_animation != "Attack":
+		if animation_player.current_animation != "Attack" and !gun.sucking:
 			if Input.is_action_just_pressed("ui_accept") or gun_timer >= gun_interval_time:
 				gun.spawn_bullet()
 				gun_timer = 0
@@ -75,7 +80,9 @@ func attacks(delta):
 				charge -= charge_step
 				gun.spawn_charge_shot()
 				UiCanvasLayer.update_scrap_bar(0.4)
+				Global.hide_tutorial(3)
 				Global.hide_tutorial(2)
+				Global.hide_tutorial(1)
 				Global.hide_tutorial(0)
 				print("Big Shot")
 				
@@ -86,8 +93,7 @@ func add_scraps(amount):
 	charge = min(charge + amount, MAXCHARGE)
 	UiCanvasLayer.update_scrap_bar()
 	if charge >= charge_step:
-		Global.hide_tutorial(1)
-		Global.check_and_show_tutorial(2)
+		Global.check_and_show_tutorial(3)
 
 func controls():
 	if !paused:

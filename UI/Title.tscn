@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://b0nsa8ee30foo"]
+[gd_scene load_steps=12 format=3 uid="uid://b0nsa8ee30foo"]
 
 [ext_resource type="Texture2D" uid="uid://b0te1sdnsapma" path="res://Graphics/UI/Title.png" id="1_beaxe"]
 [ext_resource type="Script" uid="uid://delmepi8j5kia" path="res://Scripts/UI/Title.gd" id="1_r6f0j"]
 [ext_resource type="FontFile" uid="uid://bpqp4y8okthrq" path="res://Fonts/Bombastic.ttf" id="4_3lc1a"]
 [ext_resource type="Texture2D" uid="uid://c86pugsvuhgws" path="res://Graphics/UI/F4.png" id="5_slkhg"]
+[ext_resource type="LabelSettings" uid="uid://jerxoinlxawy" path="res://Fonts/Bombastic.tres" id="6_a4fsp"]
 [ext_resource type="Texture2D" uid="uid://df4b44bwildaf" path="res://Graphics/UI/F5.png" id="6_fiida"]
+[ext_resource type="Script" uid="uid://cfmpbkxxqbhcv" path="res://UI/scorelabel.gd" id="7_mhpkn"]
 
 [sub_resource type="Animation" id="Animation_rr0t8"]
 resource_name = "Hide"
@@ -77,7 +79,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(-1.75, -1.75),
 "update": 0,
-"values": [Vector2(240, 64), Vector2(240, 56)]
+"values": [Vector2(232, 64), Vector2(232, 56)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -86,10 +88,10 @@ tracks/1/path = NodePath("RichTextLabel:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.25, 1.75),
+"times": PackedFloat32Array(0.5, 2),
 "transitions": PackedFloat32Array(-1.75, -1.75),
 "update": 0,
-"values": [Vector2(192, 104), Vector2(192, 96)]
+"values": [Vector2(192, 112), Vector2(192, 104)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rr0t8"]
@@ -115,9 +117,9 @@ texture = ExtResource("1_beaxe")
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
 offset_left = 192.0
-offset_top = 103.415
+offset_top = 104.0
 offset_right = 280.0
-offset_bottom = 119.415
+offset_bottom = 120.0
 theme_override_constants/outline_size = 4
 theme_override_fonts/normal_font = ExtResource("4_3lc1a")
 bbcode_enabled = true
@@ -138,3 +140,14 @@ texture = ExtResource("5_slkhg")
 [node name="F6" type="Sprite2D" parent="."]
 position = Vector2(24, 40)
 texture = ExtResource("6_fiida")
+
+[node name="Highscore" type="Label" parent="."]
+offset_left = 216.0
+offset_right = 312.0
+offset_bottom = 12.0
+text = "highscore 00000000"
+label_settings = ExtResource("6_a4fsp")
+horizontal_alignment = 2
+script = ExtResource("7_mhpkn")
+message = "HIGHSCORE"
+digits = 8

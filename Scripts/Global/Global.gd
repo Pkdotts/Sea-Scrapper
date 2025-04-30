@@ -47,10 +47,14 @@ var gameover = false
 var t_flags = [
 	false,
 	false,
+	false,
 	false
 ]
 
 var timer: Timer
+
+func _ready() -> void:
+	AudioManager.play_title_music()
 
 func check_and_show_tutorial(tut: int):
 	if !t_flags[tut]:
@@ -66,15 +70,16 @@ func hide_tutorial(tut: int, enabled = true):
 
 func start_game() -> void:
 	player_hp = MAXHP
+	AudioManager.play_game_music()
+	UiCanvasLayer.add_gamehud_ui()
 
 func set_gameover(enabled):
 	gameover = enabled
 	if enabled:
-		UiCanvasLayer.hide_tutorial(0)
-		UiCanvasLayer.hide_tutorial(1)
-		UiCanvasLayer.hide_tutorial(2)
+		UiCanvasLayer.hide_all_tutorials()
 		UiCanvasLayer.gamehud.disappear()
 		UiCanvasLayer.add_gameover_ui()
+		AudioManager.play_title_music()
 
 func return_to_title() -> void:
 	UiCanvasLayer.circle_transition()

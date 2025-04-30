@@ -1,15 +1,58 @@
-[gd_scene load_steps=3 format=3 uid="uid://qf8er53c01bo"]
+[gd_scene load_steps=7 format=3 uid="uid://qf8er53c01bo"]
 
 [ext_resource type="Script" uid="uid://b5r8wfm4oyfpf" path="res://Scripts/Gun.gd" id="1_1mk74"]
+[ext_resource type="PackedScene" uid="uid://cxvblyx6i8dlj" path="res://Nodes/Effects/SuckBubble.tscn" id="2_aj30j"]
+[ext_resource type="Script" uid="uid://bcj1fhoji58bm" path="res://Scripts/ItemSpawner.gd" id="3_wy8ml"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_anade"]
-size = Vector2(56, 32)
+size = Vector2(120, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aj30j"]
+size = Vector2(144, 1.16825e-05)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wy8ml"]
+size = Vector2(48, 4.76837e-07)
 
 [node name="Gun" type="Node2D"]
 script = ExtResource("1_1mk74")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(20, 0)
+position = Vector2(52, 0)
 shape = SubResource("RectangleShape2D_anade")
+
+[node name="BubbleSpawner" type="Node2D" parent="."]
+position = Vector2(72, 0)
+script = ExtResource("3_wy8ml")
+item = ExtResource("2_aj30j")
+amount = 2
+interval = 0.03
+random_spawn_size = Vector2(24, 40)
+metadata/_custom_type_script = "uid://bcj1fhoji58bm"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(64, -24)
+rotation = -3.14159
+shape = SubResource("RectangleShape2D_aj30j")
+one_way_collision = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(72, 0)
+rotation = -1.5708
+shape = SubResource("RectangleShape2D_wy8ml")
+one_way_collision = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(64, 24)
+shape = SubResource("RectangleShape2D_aj30j")
+one_way_collision = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

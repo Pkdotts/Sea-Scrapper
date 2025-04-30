@@ -86,6 +86,7 @@ func damage(amt, groups):
 			
 		if !im_dying:
 			Global.check_and_show_tutorial(1)
+			Global.hide_tutorial(2, false)
 	else:
 		FlashPlayer.play("Flash")
 
@@ -120,6 +121,8 @@ func die() -> void:
 	ScrapSpawner.spawn_items()
 	fish_spawner.spawn_items()
 	Global.add_score(score)
+	Global.check_and_show_tutorial(2)
+	Global.hide_tutorial(1, false)
 	queue_free()
 
 func _on_hitbox_area_entered(area: Area2D) -> void:

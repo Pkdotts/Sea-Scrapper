@@ -12,6 +12,7 @@ anchors_preset = 0
 script = ExtResource("1_tlt1r")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 5.0
 offset_right = 100.0

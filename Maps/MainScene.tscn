@@ -126,7 +126,7 @@ metadata/_custom_type_script = "uid://brualadq3pwpk"
 z_index = 1
 
 [node name="Player" parent="PlayerLayer" instance=ExtResource("11_crs1i")]
-position = Vector2(64, 88)
+position = Vector2(88, 88)
 
 [node name="VerticalCollisions" type="StaticBody2D" parent="."]
 collision_layer = 9

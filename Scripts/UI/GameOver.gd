@@ -9,16 +9,18 @@ var pressed = false
 @onready var newhighscore = $NewHighscore
 
 func _ready() -> void:
+	pressed = false
+	if Global.score > Global.highscore:
+		newhighscore.show()
+		Global.highscore = Global.score
+	else:
+		newhighscore.hide()
 	score.display_number(Global.score)
 	highscore.display_number(Global.highscore)
 	level.display_number(Global.get_difficulty())
-	if Global.score > Global.highscore:
-		newhighscore.show()
-	else:
-		newhighscore.hide()
-	
 
-func _input(event: InputEvent) -> void:
+func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept") and !pressed:
+		print("pressed!")
 		pressed = true
 		Global.return_to_title()

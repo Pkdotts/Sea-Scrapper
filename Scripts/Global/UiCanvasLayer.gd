@@ -45,6 +45,10 @@ func hide_tutorial(tut: int):
 	if tutorial != null:
 		tutorial.hide_tutorial(tut)
 
+func hide_all_tutorials():
+	if tutorial != null:
+		tutorial.hide_all()
+
 func erase_tutorial():
 	if tutorial != null:
 		tutorial.queue_free()
@@ -92,7 +96,7 @@ func remove_transition():
 	transition = null
 
 func circle_transition():
-	if transition==null:
+	if transition == null:
 		var transitionUI = transition_ui.instantiate()
 		add_child(transitionUI)
 		transition = transitionUI
@@ -100,3 +104,4 @@ func circle_transition():
 		await transition.transition_finished
 		transition.circleout()
 		await transition.transition_finished
+		remove_transition()

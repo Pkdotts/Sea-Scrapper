@@ -20,6 +20,7 @@ offset_bottom = 78.0
 texture = ExtResource("2_vjbsa")
 
 [node name="Score" type="Label" parent="."]
+layout_mode = 0
 offset_left = 168.0
 offset_top = 88.0
 offset_right = 256.0
@@ -32,6 +33,7 @@ message = "SCORE"
 digits = 8
 
 [node name="Highscore" type="Label" parent="."]
+layout_mode = 0
 offset_left = 160.0
 offset_top = 104.0
 offset_right = 256.0
@@ -44,6 +46,7 @@ message = "HIGHSCORE"
 digits = 8
 
 [node name="Level" type="Label" parent="."]
+layout_mode = 0
 offset_left = 80.0
 offset_top = 88.0
 offset_right = 121.0
@@ -68,6 +71,7 @@ scroll_active = false
 horizontal_alignment = 2
 
 [node name="Restart" type="HBoxContainer" parent="."]
+layout_mode = 0
 offset_left = 128.0
 offset_top = 144.0
 offset_right = 195.0

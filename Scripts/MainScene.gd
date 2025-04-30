@@ -8,10 +8,10 @@ func _ready() -> void:
 	Global.mainScene = self
 
 func start_game():
-	UiCanvasLayer.add_gamehud_ui()
-	if !Global.t_flags[2]:
+	Global.start_game()
+	if !Global.t_flags[3]:
 		await get_tree().create_timer(3).timeout
 	else:
-		UiCanvasLayer.hide_tutorial(0)
+		UiCanvasLayer.hide_all_tutorials()
 	
 	pattern_spawner.spawn_pattern()

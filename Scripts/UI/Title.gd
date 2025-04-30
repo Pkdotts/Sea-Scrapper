@@ -6,6 +6,8 @@ var hid = false
 
 func _ready() -> void:
 	UiCanvasLayer.add_tutorial_ui()
+	anim_player.play("Sway")
+	$Highscore.display_number(Global.highscore)
 
 func hide_title():
 	anim_player.play("Hide")

@@ -1,5 +1,6 @@
 extends Sprite2D
 
+@export var moving = true
 @onready var anim_player = $AnimationPlayer
 var amplitude = 4.0
 var speed = 4.0
@@ -18,8 +19,9 @@ func _ready():
 
 
 func _physics_process(delta):
-	position.y -= float_speed * delta
-	position.x = cos(Time.get_ticks_msec() / 1000.0 * speed + og_time) * amplitude + og_pos_x
+	if moving:
+		position.y -= float_speed * delta
+		position.x = cos(Time.get_ticks_msec() / 1000.0 * speed + og_time) * amplitude + og_pos_x
 	
 	if position.y < -8:
 		queue_free()
