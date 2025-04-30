@@ -74,6 +74,10 @@ func hide_tutorial(tut: int, enabled = true):
 		UiCanvasLayer.hide_tutorial(tut)
 
 func pass_tutorial():
+	hide_tutorial(3)
+	hide_tutorial(2)
+	hide_tutorial(1)
+	hide_tutorial(0)
 	speed = difficulty_speed_increment
 	emit_signal("updated_level")
 
@@ -110,8 +114,6 @@ func get_charge() -> int:
 
 func add_level() -> void:
 	if !gameover and t_flags[3]:
-		if speed + 1 >= difficulty_speed_increment:
-			return
 		speed += 1
 		emit_signal("updated_level")
 

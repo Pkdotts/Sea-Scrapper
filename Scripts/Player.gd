@@ -80,10 +80,8 @@ func attacks(delta):
 				charge -= charge_step
 				gun.spawn_charge_shot()
 				UiCanvasLayer.update_scrap_bar(0.4)
-				Global.hide_tutorial(3)
-				Global.hide_tutorial(2)
-				Global.hide_tutorial(1)
-				Global.hide_tutorial(0)
+				if !Global.t_flags[3]:
+					Global.pass_tutorial()
 				print("Big Shot")
 				
 	if Input.is_action_just_released("ui_accept"):
