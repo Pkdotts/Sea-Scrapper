@@ -142,6 +142,7 @@ position = Vector2(24, 40)
 texture = ExtResource("6_fiida")
 
 [node name="Highscore" type="Label" parent="."]
+layout_mode = 0
 offset_left = 216.0
 offset_right = 312.0
 offset_bottom = 12.0

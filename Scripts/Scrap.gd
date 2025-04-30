@@ -6,11 +6,13 @@ class_name Scrap
 
 func _ready() -> void:
 	$Area2D/CollisionShape2D.set_deferred("disabled", true)
+	super._ready()
 
 # Override
 func set_sucking(enabled):
 	super.set_sucking(enabled)
 	$Area2D/CollisionShape2D.set_deferred("disabled", !enabled)
+	
 
 func collect(collector: Node2D):
 	AudioManager.play_sfx(sfx, "scrap" + str(AudioManager.get_number_of_sfx()))

@@ -13,5 +13,6 @@ func start_game():
 		await get_tree().create_timer(3).timeout
 	else:
 		UiCanvasLayer.hide_all_tutorials()
+		Global.add_level()
 	
 	pattern_spawner.spawn_pattern()

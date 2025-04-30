@@ -69,12 +69,13 @@ func movement(delta):
 func damage(amt, groups):
 	hp -= amt
 	if hp <= 0:
-		Global.hide_tutorial(1, false)
 		if groups.has("Bullet"):
 			start_dying(KNOCKBACKSPEED)
+			Global.hide_tutorial(1, false)
 		elif groups.has("Melee"):
 			meleed = true
 			start_dying(KNOCKBACKSPEEDMELEE)
+			Global.hide_tutorial(1, false)
 	elif groups.has("Melee"):
 		var shaker = Shaker.new(Sprite, "offset", Vector2(1, 0), 2, 0.2, 0.03, Vector2(0.5, 1.5))
 	FlashPlayer.stop()
@@ -86,7 +87,6 @@ func damage(amt, groups):
 			
 		if !im_dying:
 			Global.check_and_show_tutorial(1)
-			Global.hide_tutorial(2, false)
 	else:
 		FlashPlayer.play("Flash")
 
@@ -117,12 +117,16 @@ func create_bubble_explosion():
 
 func die() -> void:
 	if !meleed:
-		ScrapSpawner.amount = 1
+		if Global.t_flags[1]:
+			ScrapSpawner.amount = 1
+		else:
+			ScrapSpawner.amount = 0
 	ScrapSpawner.spawn_items()
 	fish_spawner.spawn_items()
-	Global.add_score(score)
+	if Global.t_flags[3]:
+		Global.add_score(score)
 	Global.check_and_show_tutorial(2)
-	Global.hide_tutorial(1, false)
+	
 	queue_free()
 
 func _on_hitbox_area_entered(area: Area2D) -> void:

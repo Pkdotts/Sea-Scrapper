@@ -148,11 +148,13 @@ libraries = {
 
 [node name="Suck" type="HBoxContainer" parent="."]
 layout_mode = 2
-offset_left = 8.0
-offset_top = 116.0
-offset_right = 74.0
-offset_bottom = 128.0
+offset_left = 248.0
+offset_top = 144.0
+offset_right = 314.0
+offset_bottom = 156.0
+alignment = 2
 script = ExtResource("2_ao1sr")
+hidden_pos = Vector2(328, 0)
 
 [node name="Label2" type="Label" parent="Suck"]
 layout_mode = 2
@@ -163,6 +165,28 @@ label_settings = ExtResource("1_hb4ao")
 modulate = Color(0.983892, 0.495893, 0.197591, 1)
 layout_mode = 2
 text = "C"
+label_settings = ExtResource("1_hb4ao")
+horizontal_alignment = 2
+
+[node name="Smack" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 248.0
+offset_top = 158.0
+offset_right = 314.0
+offset_bottom = 170.0
+alignment = 2
+script = ExtResource("2_ao1sr")
+hidden_pos = Vector2(328, 0)
+
+[node name="Label2" type="Label" parent="Smack"]
+layout_mode = 2
+text = "SMACK"
+label_settings = ExtResource("1_hb4ao")
+
+[node name="Label" type="Label" parent="Smack"]
+modulate = Color(0.983892, 0.495893, 0.197591, 1)
+layout_mode = 2
+text = "Z"
 label_settings = ExtResource("1_hb4ao")
 horizontal_alignment = 2
 
@@ -189,7 +213,7 @@ text = "SPACE"
 label_settings = ExtResource("1_hb4ao")
 horizontal_alignment = 2
 
-[node name="Smack" type="HBoxContainer" parent="."]
+[node name="Smack2" type="HBoxContainer" parent="."]
 layout_mode = 2
 offset_left = 8.0
 offset_top = 116.0
@@ -197,12 +221,12 @@ offset_right = 74.0
 offset_bottom = 128.0
 script = ExtResource("2_ao1sr")
 
-[node name="Label2" type="Label" parent="Smack"]
+[node name="Label2" type="Label" parent="Smack2"]
 layout_mode = 2
 text = "SMACK"
 label_settings = ExtResource("1_hb4ao")
 
-[node name="Label" type="Label" parent="Smack"]
+[node name="Label" type="Label" parent="Smack2"]
 modulate = Color(0.983892, 0.495893, 0.197591, 1)
 layout_mode = 2
 text = "Z"

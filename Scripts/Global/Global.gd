@@ -33,10 +33,10 @@ const MAXHP : int = 6
 var player_hp : int = 6
 
 const START_SPEED = 20 # Originally 20
-const SPEED_PER_DIFFICULTY = 0 # Originally 3
+const SPEED_PER_DIFFICULTY = 3 # Originally 3
 
 var speed : int = 0
-const difficulty_speed_increment : int = 6
+const difficulty_speed_increment : int = 5
 const MAX_LEVEL : int = 50
 
 var score = 0
@@ -56,22 +56,26 @@ var timer: Timer
 func _ready() -> void:
 	AudioManager.play_title_music()
 
-func check_and_show_tutorial(tut: int):
-	if !t_flags[tut]:
-		print("global show " + str(tut))
-		UiCanvasLayer.show_tutorial(tut)
-		
-
-func hide_tutorial(tut: int, enabled = true):
-	if !t_flags[tut]:
-		t_flags[tut] = enabled
-		UiCanvasLayer.hide_tutorial(tut)
 
 
 func start_game() -> void:
 	player_hp = MAXHP
 	AudioManager.play_game_music()
 	UiCanvasLayer.add_gamehud_ui()
+
+func check_and_show_tutorial(tut: int):
+	if !t_flags[tut] and !t_flags[3]:
+		print("global show " + str(tut))
+		UiCanvasLayer.show_tutorial(tut)
+
+func hide_tutorial(tut: int, enabled = true):
+	if !t_flags[tut]:
+		t_flags[tut] = enabled
+		UiCanvasLayer.hide_tutorial(tut)
+
+func pass_tutorial():
+	speed = difficulty_speed_increment
+	emit_signal("updated_level")
 
 func set_gameover(enabled):
 	gameover = enabled
@@ -102,9 +106,11 @@ func get_player_hp_percentage() -> float:
 func get_charge() -> int:
 	return persistPlayer.charge
 
+
+
 func add_level() -> void:
-	if !gameover:
-		if speed + 1 >= difficulty_speed_increment and !t_flags[2]:
+	if !gameover and t_flags[3]:
+		if speed + 1 >= difficulty_speed_increment:
 			return
 		speed += 1
 		emit_signal("updated_level")

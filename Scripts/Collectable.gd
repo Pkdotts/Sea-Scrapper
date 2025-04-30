@@ -14,6 +14,7 @@ func _ready() -> void:
 	apply_impulse(pop_direction * pop_impulse)
 
 func _physics_process(delta: float) -> void:
+	
 	if sucked:
 		var offset = Vector2(16, -10 * Global.persistPlayer.inputVector.y)
 		var distance = global_position.distance_to(Global.persistPlayer.gun.global_position + offset)

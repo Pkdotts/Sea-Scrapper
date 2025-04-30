@@ -22,7 +22,7 @@ func _ready() -> void:
 			position.y = hidden_pos.y
 
 func set_to_appear_pos():
-	
+	shown = true
 	position.x = appear_pos.x
 	position.y = appear_pos.y
 
