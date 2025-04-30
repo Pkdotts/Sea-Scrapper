@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dxl78r3ksipn5"]
 
 [ext_resource type="Script" uid="uid://drq565n5jsvn4" path="res://Scripts/Mover.gd" id="1_cqbrj"]
-[ext_resource type="PackedScene" uid="uid://cm4qm7klpesq6" path="res://Nodes/Enemies/RoboFish.tscn" id="2_58fcr"]
+[ext_resource type="PackedScene" uid="uid://cm4qm7klpesq6" path="res://Nodes/RoboFish.tscn" id="2_58fcr"]
 [ext_resource type="PackedScene" uid="uid://b1lbwy6reate" path="res://Nodes/Enemies/RoboFishTiny.tscn" id="3_58fcr"]
 
 [node name="EnemyPattern" type="Node2D"]

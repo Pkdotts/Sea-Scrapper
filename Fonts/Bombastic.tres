@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://jerxoinlxawy"]
+
+[ext_resource type="FontFile" uid="uid://bpqp4y8okthrq" path="res://Fonts/Bombastic.ttf" id="1_u7bhf"]
+
+[resource]
+font = ExtResource("1_u7bhf")
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)

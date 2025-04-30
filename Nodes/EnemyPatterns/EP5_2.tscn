@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://drq565n5jsvn4" path="res://Scripts/Mover.gd" id="1_rolwi"]
 [ext_resource type="PackedScene" uid="uid://eqp0h8vmi7va" path="res://Nodes/Enemies/RoboSquid.tscn" id="2_nw1fe"]
-[ext_resource type="PackedScene" uid="uid://cm4qm7klpesq6" path="res://Nodes/Enemies/RoboFish.tscn" id="3_gnt8c"]
+[ext_resource type="PackedScene" uid="uid://cm4qm7klpesq6" path="res://Nodes/RoboFish.tscn" id="3_gnt8c"]
 
 [node name="EnemyPattern" type="Node2D"]
 script = ExtResource("1_rolwi")

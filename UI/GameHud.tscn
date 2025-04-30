@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://cme03m3rnalcs"]
+[gd_scene load_steps=6 format=3 uid="uid://cme03m3rnalcs"]
 
 [ext_resource type="PackedScene" uid="uid://bpav3fkitw1na" path="res://UI/HPBar.tscn" id="1_2wk8h"]
 [ext_resource type="Script" uid="uid://tynq8efphau1" path="res://Scripts/UI/GameHud.gd" id="1_tlt1r"]
 [ext_resource type="PackedScene" uid="uid://bpn8qve673v7e" path="res://UI/ScrapBar.tscn" id="3_f7loi"]
+[ext_resource type="LabelSettings" uid="uid://jerxoinlxawy" path="res://Fonts/Bombastic.tres" id="4_pgklr"]
+[ext_resource type="Script" uid="uid://cfmpbkxxqbhcv" path="res://UI/scorelabel.gd" id="5_j3vom"]
 
-[node name="GameHud" type="CanvasLayer"]
+[node name="GameHud" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_tlt1r")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -19,3 +23,27 @@ layout_mode = 2
 
 [node name="ScrapBar" parent="HBoxContainer" instance=ExtResource("3_f7loi")]
 layout_mode = 2
+
+[node name="LevelScore" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 240.0
+offset_right = 313.0
+offset_bottom = 24.0
+theme_override_constants/separation = 0
+
+[node name="Score" type="Label" parent="LevelScore"]
+layout_mode = 2
+text = "score 00000000"
+label_settings = ExtResource("4_pgklr")
+horizontal_alignment = 2
+script = ExtResource("5_j3vom")
+message = "SCORE"
+digits = 8
+
+[node name="Level" type="Label" parent="LevelScore"]
+layout_mode = 2
+text = "LEVEL 01"
+label_settings = ExtResource("4_pgklr")
+horizontal_alignment = 2
+script = ExtResource("5_j3vom")
+message = "LEVEL"

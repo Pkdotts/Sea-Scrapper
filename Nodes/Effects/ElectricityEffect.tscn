@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://vs0n54bqiqra"]
+
+[ext_resource type="Texture2D" uid="uid://bv8vrot4fgd7j" path="res://Graphics/Effects/Electricity.png" id="1_ylgio"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5t7mv"]
+atlas = ExtResource("1_ylgio")
+region = Rect2(0, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gs8b8"]
+atlas = ExtResource("1_ylgio")
+region = Rect2(60, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uihdw"]
+atlas = ExtResource("1_ylgio")
+region = Rect2(120, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tebmy"]
+atlas = ExtResource("1_ylgio")
+region = Rect2(180, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85a1p"]
+atlas = ExtResource("1_ylgio")
+region = Rect2(240, 0, 60, 60)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ctryj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5t7mv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gs8b8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uihdw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tebmy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85a1p")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="ElectricityEffect" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_ctryj")
+frame_progress = 0.963129
+offset = Vector2(-3, 0)

@@ -3,7 +3,7 @@ class_name Collectable
 
 const MAX_IMPULSE = 200
 const MIN_IMPULSE = 100
-
+const effectPath = "res://Nodes/Bullets/BulletEffect.tscn"
 
 func _ready() -> void:
 	var pop_direction = Vector2(randf_range(0.5, 1), randf_range(-0.4, 0.4)).normalized()
@@ -15,8 +15,16 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func collect(collector: Node2D):
+	create_effect("ItemCollect")
 	queue_free()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.get_groups().has("Player"):
 		collect(body)
+
+func create_effect(anim):
+	var effect = preload(effectPath)
+	var effectNode = effect.instantiate()
+	get_parent().add_child(effectNode)
+	effectNode.global_position = self.global_position
+	effectNode.play(anim)

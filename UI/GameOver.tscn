@@ -1,0 +1,89 @@
+[gd_scene load_steps=6 format=3 uid="uid://b116p53w7wc1a"]
+
+[ext_resource type="Script" uid="uid://b6b7v32lm32gs" path="res://Scripts/UI/GameOver.gd" id="1_3pwoa"]
+[ext_resource type="Texture2D" uid="uid://nm13bwy8ehad" path="res://Graphics/UI/It's Over.png" id="2_vjbsa"]
+[ext_resource type="Script" uid="uid://cfmpbkxxqbhcv" path="res://UI/scorelabel.gd" id="4_3pwoa"]
+[ext_resource type="LabelSettings" uid="uid://jerxoinlxawy" path="res://Fonts/Bombastic.tres" id="4_icvhn"]
+[ext_resource type="FontFile" uid="uid://bpqp4y8okthrq" path="res://Fonts/Bombastic.ttf" id="5_dy830"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_3pwoa")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 8.0
+offset_right = 242.0
+offset_bottom = 78.0
+texture = ExtResource("2_vjbsa")
+
+[node name="Score" type="Label" parent="."]
+offset_left = 168.0
+offset_top = 88.0
+offset_right = 256.0
+offset_bottom = 100.0
+text = "score 00000000"
+label_settings = ExtResource("4_icvhn")
+horizontal_alignment = 2
+script = ExtResource("4_3pwoa")
+message = "SCORE"
+digits = 8
+
+[node name="Highscore" type="Label" parent="."]
+offset_left = 160.0
+offset_top = 104.0
+offset_right = 256.0
+offset_bottom = 116.0
+text = "highscore 00000000"
+label_settings = ExtResource("4_icvhn")
+horizontal_alignment = 2
+script = ExtResource("4_3pwoa")
+message = "HIGHSCORE"
+digits = 8
+
+[node name="Level" type="Label" parent="."]
+offset_left = 80.0
+offset_top = 88.0
+offset_right = 121.0
+offset_bottom = 100.0
+text = "LEVEL 01"
+label_settings = ExtResource("4_icvhn")
+horizontal_alignment = 2
+script = ExtResource("4_3pwoa")
+message = "LEVEL"
+
+[node name="NewHighscore" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 176.0
+offset_top = 120.0
+offset_right = 256.0
+offset_bottom = 136.0
+theme_override_constants/outline_size = 4
+theme_override_fonts/normal_font = ExtResource("5_dy830")
+bbcode_enabled = true
+text = "[rainbow]NEW HIGHSCORE"
+scroll_active = false
+horizontal_alignment = 2
+
+[node name="Restart" type="HBoxContainer" parent="."]
+offset_left = 128.0
+offset_top = 144.0
+offset_right = 195.0
+offset_bottom = 160.0
+alignment = 1
+
+[node name="Label2" type="Label" parent="Restart"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+text = "RESTART"
+label_settings = ExtResource("4_icvhn")
+
+[node name="Label" type="Label" parent="Restart"]
+modulate = Color(0.983892, 0.495893, 0.197591, 1)
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+text = "X"
+label_settings = ExtResource("4_icvhn")
+horizontal_alignment = 2

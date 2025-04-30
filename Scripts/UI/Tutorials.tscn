@@ -1,0 +1,135 @@
+[gd_scene load_steps=5 format=3 uid="uid://cv53wupv763w2"]
+
+[ext_resource type="Script" uid="uid://ce2jxcgnou1bx" path="res://Scripts/UI/Tutorials.gd" id="1_afv0a"]
+[ext_resource type="LabelSettings" uid="uid://jerxoinlxawy" path="res://Fonts/Bombastic.tres" id="1_hb4ao"]
+[ext_resource type="Script" uid="uid://bp7eps2a61xk" path="res://Scripts/UI/TutorialPrompt.gd" id="2_ao1sr"]
+[ext_resource type="Texture2D" uid="uid://cno8ptn6vsdr" path="res://Graphics/UI/KeyArrows.png" id="2_lp48q"]
+
+[node name="Tutorials" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_afv0a")
+
+[node name="Basics" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 120.0
+offset_right = 74.0
+offset_bottom = 168.0
+theme_override_constants/separation = -2
+alignment = 2
+script = ExtResource("2_ao1sr")
+shown = true
+
+[node name="Shoot" type="HBoxContainer" parent="Basics"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Basics/Shoot"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+text = "SHOOT"
+label_settings = ExtResource("1_hb4ao")
+
+[node name="Label" type="Label" parent="Basics/Shoot"]
+modulate = Color(0.983892, 0.495893, 0.197591, 1)
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+text = "X"
+label_settings = ExtResource("1_hb4ao")
+horizontal_alignment = 2
+
+[node name="Dash" type="HBoxContainer" parent="Basics"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Basics/Dash"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+text = "DASH"
+label_settings = ExtResource("1_hb4ao")
+
+[node name="Label" type="Label" parent="Basics/Dash"]
+modulate = Color(0.983892, 0.495893, 0.197591, 1)
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+text = "SHIFT"
+label_settings = ExtResource("1_hb4ao")
+horizontal_alignment = 2
+
+[node name="Move" type="HBoxContainer" parent="Basics"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Basics/Move"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+text = "MOVE"
+label_settings = ExtResource("1_hb4ao")
+
+[node name="TextureRect" type="TextureRect" parent="Basics/Move"]
+modulate = Color(0.983892, 0.495893, 0.197591, 1)
+layout_mode = 2
+texture = ExtResource("2_lp48q")
+stretch_mode = 2
+
+[node name="BIGSHOT" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 109.0
+offset_right = 74.0
+offset_bottom = 121.0
+script = ExtResource("2_ao1sr")
+
+[node name="Label2" type="Label" parent="BIGSHOT"]
+layout_mode = 2
+text = "BIG SHOT"
+label_settings = ExtResource("1_hb4ao")
+
+[node name="Label" type="Label" parent="BIGSHOT"]
+modulate = Color(0.983892, 0.495893, 0.197591, 1)
+layout_mode = 2
+text = "SPACE"
+label_settings = ExtResource("1_hb4ao")
+horizontal_alignment = 2
+
+[node name="BIGSHOT2" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 95.0
+offset_right = 82.0
+offset_bottom = 107.0
+script = ExtResource("2_ao1sr")
+
+[node name="Label2" type="Label" parent="BIGSHOT2"]
+layout_mode = 2
+text = "BIG SHOT"
+label_settings = ExtResource("1_hb4ao")
+
+[node name="Label" type="Label" parent="BIGSHOT2"]
+modulate = Color(0.983892, 0.495893, 0.197591, 1)
+layout_mode = 2
+text = "SPACE"
+label_settings = ExtResource("1_hb4ao")
+horizontal_alignment = 2
+
+[node name="Smack" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 109.0
+offset_right = 74.0
+offset_bottom = 121.0
+script = ExtResource("2_ao1sr")
+
+[node name="Label2" type="Label" parent="Smack"]
+layout_mode = 2
+text = "SMACK"
+label_settings = ExtResource("1_hb4ao")
+
+[node name="Label" type="Label" parent="Smack"]
+modulate = Color(0.983892, 0.495893, 0.197591, 1)
+layout_mode = 2
+text = "Z"
+label_settings = ExtResource("1_hb4ao")
+horizontal_alignment = 2

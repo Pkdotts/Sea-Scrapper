@@ -1,7 +1,12 @@
 extends Node
 
 var persistCamera = null
+var mainScene : MainScene = null
 var persistPlayer : Player = null
+
+signal updated_score
+signal updated_level
+signal game_overed
 
 const PATTERNS = [
 	[ # Difficulty 1
@@ -27,16 +32,59 @@ const PATTERNS = [
 const MAXHP : int = 6
 var player_hp : int = 6
 
-var level : int = 0
-const difficulty_level_increment : int = 6
+const START_SPEED = 20 # Originally 20
+const SPEED_PER_DIFFICULTY = 0 # Originally 3
+
+var speed : int = 0
+const difficulty_speed_increment : int = 6
+const MAX_LEVEL : int = 50
+
+var score = 0
+var highscore = 0
+
+var gameover = false
+
+var t_flags = [
+	false,
+	false,
+	false
+]
 
 var timer: Timer
 
-func _ready() -> void:
-	start_game()
+func check_and_show_tutorial(tut: int):
+	if !t_flags[tut]:
+		print("global show " + str(tut))
+		UiCanvasLayer.show_tutorial(tut)
+		
+
+func hide_tutorial(tut: int, enabled = true):
+	if !t_flags[tut]:
+		t_flags[tut] = enabled
+		UiCanvasLayer.hide_tutorial(tut)
+
 
 func start_game() -> void:
 	player_hp = MAXHP
+
+func set_gameover(enabled):
+	gameover = enabled
+	if enabled:
+		UiCanvasLayer.hide_tutorial(0)
+		UiCanvasLayer.hide_tutorial(1)
+		UiCanvasLayer.hide_tutorial(2)
+		UiCanvasLayer.gamehud.disappear()
+		UiCanvasLayer.add_gameover_ui()
+
+func return_to_title() -> void:
+	UiCanvasLayer.circle_transition()
+	await UiCanvasLayer.transition.transition_finished
+	UiCanvasLayer.erase_gameover()
+	get_tree().reload_current_scene()
+	set_gameover(false)
+	player_hp = MAXHP
+	score = 0
+	speed = 0
 
 func add_hp(points) -> void:
 	var new_hp = player_hp + points
@@ -50,8 +98,23 @@ func get_charge() -> int:
 	return persistPlayer.charge
 
 func add_level() -> void:
-	print("add")
-	level += 1
+	if !gameover:
+		if speed + 1 >= difficulty_speed_increment and !t_flags[2]:
+			return
+		speed += 1
+		emit_signal("updated_level")
+
+func add_score(amount):
+	if !gameover:
+		score += amount
+		emit_signal("updated_score")
+
+func reset_score():
+	score = 0
 
 func get_difficulty() -> int:
-	return level / difficulty_level_increment
+	var difficulty = speed / difficulty_speed_increment
+	if difficulty > MAX_LEVEL:
+		difficulty = MAX_LEVEL
+	return difficulty
+		

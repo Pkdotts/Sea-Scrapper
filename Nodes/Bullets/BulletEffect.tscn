@@ -5,7 +5,8 @@
 
 [node name="BulletEffect" type="AnimatedSprite2D"]
 sprite_frames = ExtResource("1_26cxb")
-animation = &"BulletPop"
+animation = &"ItemCollect"
+frame_progress = 1.0
 script = ExtResource("2_88n20")
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

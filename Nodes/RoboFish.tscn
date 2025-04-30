@@ -1,0 +1,192 @@
+[gd_scene load_steps=26 format=3 uid="uid://cm4qm7klpesq6"]
+
+[ext_resource type="Script" uid="uid://ctpvm2olx0he8" path="res://Scripts/Enemies/BasicEnemy.gd" id="1_m0q24"]
+[ext_resource type="Material" uid="uid://bqmu8g5akxawm" path="res://Shaders/Flash.tres" id="2_wdc25"]
+[ext_resource type="Texture2D" uid="uid://byuvlr5ujd1ib" path="res://Graphics/Enemies/RoboFish.png" id="3_2k1bl"]
+[ext_resource type="PackedScene" uid="uid://diythvtq5ea55" path="res://Nodes/Enemies/EnemyFlashPlayer.tscn" id="4_uxb72"]
+[ext_resource type="Script" uid="uid://s3ysfh7um7ev" path="res://Scripts/BulletSpawner.gd" id="5_y7hxq"]
+[ext_resource type="PackedScene" uid="uid://b8p14fnn4k01l" path="res://Nodes/Bullets/EnemyBullets/EnemyBullet.tscn" id="6_hg0cu"]
+[ext_resource type="Script" uid="uid://5stk1gvpktyg" path="res://Scripts/BulletPattern.gd" id="7_emqmu"]
+[ext_resource type="Script" uid="uid://bcj1fhoji58bm" path="res://Scripts/ItemSpawner.gd" id="8_0rdbx"]
+[ext_resource type="PackedScene" uid="uid://dx4wkq1qppqbh" path="res://Nodes/Effects/Explosion.tscn" id="9_jafco"]
+[ext_resource type="PackedScene" uid="uid://bmgevjgtkjqw5" path="res://Nodes/Scrap.tscn" id="10_ja4yu"]
+[ext_resource type="PackedScene" uid="uid://ognrw56p3tyd" path="res://Nodes/YumFish.tscn" id="11_jtx4s"]
+[ext_resource type="Script" uid="uid://duu7eqorvs2st" path="res://Scripts/BubbleSpawner.gd" id="12_4l3sr"]
+[ext_resource type="PackedScene" uid="uid://clkaw58ubcibl" path="res://Nodes/Effects/Bubble.tscn" id="13_2vk3p"]
+[ext_resource type="Texture2D" uid="uid://34bibc1ola6c" path="res://Graphics/Effects/VulnerabilityExplosion.png" id="15_wdc25"]
+
+[sub_resource type="Animation" id="Animation_wc4c6"]
+resource_name = "Idle"
+length = 0.666675
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_6wd8m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qcj7j"]
+_data = {
+&"Idle": SubResource("Animation_wc4c6"),
+&"RESET": SubResource("Animation_6wd8m")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wc4c6"]
+radius = 11.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ekvrh"]
+radius = 11.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdc25"]
+atlas = ExtResource("15_wdc25")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2k1bl"]
+atlas = ExtResource("15_wdc25")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxb72"]
+atlas = ExtResource("15_wdc25")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7hxq"]
+atlas = ExtResource("15_wdc25")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hg0cu"]
+atlas = ExtResource("15_wdc25")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_emqmu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdc25")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2k1bl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxb72")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7hxq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hg0cu")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="RoboFish" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_m0q24")
+hp = 10
+vulnerabilityThreshold = 7
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("2_wdc25")
+position = Vector2(-1, -1)
+texture = ExtResource("3_2k1bl")
+hframes = 2
+
+[node name="FlashPlayer" parent="." instance=ExtResource("4_uxb72")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qcj7j")
+}
+
+[node name="Hitbox" type="Area2D" parent="." groups=["EnemyAttack"]]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_wc4c6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ekvrh")
+
+[node name="Timer" type="Timer" parent="." groups=["EnemyAttack"]]
+
+[node name="BulletSpawner" type="Node2D" parent="."]
+position = Vector2(-5, 0)
+script = ExtResource("5_y7hxq")
+bullet = ExtResource("6_hg0cu")
+metadata/_custom_type_script = "uid://s3ysfh7um7ev"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1.43051e-06, -4.76837e-07)
+scale = Vector2(2.4, 0.8)
+
+[node name="BulletPattern" type="Node" parent="."]
+script = ExtResource("7_emqmu")
+bullet_amount = 1
+bullet_interval = 0.2
+bullet_spawner = NodePath("../BulletSpawner")
+metadata/_custom_type_script = "uid://5stk1gvpktyg"
+
+[node name="ExplosionSpawner" type="Node2D" parent="."]
+position = Vector2(10, 0)
+script = ExtResource("8_0rdbx")
+item = ExtResource("9_jafco")
+amount = 3
+interval = 0.04
+random_spawn_size = Vector2(5, 10)
+metadata/_custom_type_script = "uid://bcj1fhoji58bm"
+
+[node name="ScrapSpawner" type="Node2D" parent="."]
+script = ExtResource("8_0rdbx")
+item = ExtResource("10_ja4yu")
+amount = 3
+metadata/_custom_type_script = "uid://bcj1fhoji58bm"
+
+[node name="FishSpawner" type="Node2D" parent="."]
+script = ExtResource("8_0rdbx")
+item = ExtResource("11_jtx4s")
+spawn_chance = 0.2
+player_health_chance_mod = 0.06
+metadata/_custom_type_script = "uid://bcj1fhoji58bm"
+
+[node name="BubbleSpawner" type="Node2D" parent="."]
+script = ExtResource("12_4l3sr")
+auto_spawn = true
+timer_wait_time = 1.0
+random_spawn_start = true
+bullet = ExtResource("13_2vk3p")
+metadata/_custom_type_script = "uid://duu7eqorvs2st"
+
+[node name="VulnerabilityBang" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_emqmu")
+frame = 4
+frame_progress = 1.0
+
+[connection signal="animation_finished" from="FlashPlayer" to="." method="_on_flash_player_animation_finished"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]

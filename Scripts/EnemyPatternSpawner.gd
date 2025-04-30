@@ -1,11 +1,7 @@
 extends Node2D
 class_name EnemyPatternSpawner
 
-@export var speed = 20
 var last_pattern = 0
-
-func _ready() -> void:
-	spawn_pattern()
 
 func spawn_pattern():
 	var patterns = Global.PATTERNS
@@ -21,7 +17,7 @@ func spawn_pattern():
 	var pattern : EnemyPattern = patterns[level][random_pattern].instantiate()
 	
 	call_deferred("add_child", pattern)
-	pattern.speed = speed
+	pattern.update_speed()
 	pattern.passed_parent.connect(spawn_pattern)
 	
 	print("added")

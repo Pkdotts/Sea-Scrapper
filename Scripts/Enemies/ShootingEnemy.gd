@@ -6,6 +6,12 @@ class_name ShootingEnemy
 @export var repeat_shot = false
 @onready var bullet_pattern = $BulletPattern
 
+func _ready() -> void:
+	timer_before_shooting -= 0.02 * Global.get_difficulty()
+	if timer_before_shooting < 0.7:
+		timer_before_shooting = 0.7
+	super._ready()
+
 func shoot():
 	if state != States.DYING:
 		bullet_pattern.activate_bullet_spawner()

@@ -37,8 +37,6 @@ var state = States.MOVING
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 
 func _ready() -> void:
-	if OS.is_debug_build() and UiCanvasLayer.gamehud == null:
-		UiCanvasLayer.add_gamehud_ui()
 	Global.persistPlayer = self
 
 func _physics_process(delta):
@@ -57,7 +55,7 @@ func _input(event):
 		start_dash()
 
 func attacks(delta):
-	if !attacking:
+	if !attacking and !paused:
 		if Input.is_action_just_pressed("ui_cancel"):
 			animation_player.stop()
 			animation_player.play("Attack")
@@ -77,6 +75,8 @@ func attacks(delta):
 				charge -= charge_step
 				gun.spawn_charge_shot()
 				UiCanvasLayer.update_scrap_bar(0.4)
+				Global.hide_tutorial(2)
+				Global.hide_tutorial(0)
 				print("Big Shot")
 				
 	if Input.is_action_just_released("ui_accept"):
@@ -85,6 +85,9 @@ func attacks(delta):
 func add_scraps(amount):
 	charge = min(charge + amount, MAXCHARGE)
 	UiCanvasLayer.update_scrap_bar()
+	if charge >= charge_step:
+		Global.hide_tutorial(1)
+		Global.check_and_show_tutorial(2)
 
 func controls():
 	if !paused:
@@ -165,7 +168,11 @@ func damage():
 		Shaker.new(sprite, "offset", Vector2(1, 0), 3, 0.4, 0.04, Vector2(2, 0.5))
 		Slowmo.start_slowmo(0.5, 0.2)
 		if Global.player_hp <= 0:
-			queue_free()
+			die()
+
+func die():
+	Global.set_gameover(true)
+	queue_free()
 
 func hit_pause(time):
 	animation_player.speed_scale = 0
@@ -184,3 +191,11 @@ func _on_hitbox_area_exited(area: Area2D) -> void:
 
 func set_attacking(enabled: bool):
 	attacking = enabled
+
+# Pausing
+
+func pause():
+	paused = true
+
+func unpause():
+	paused = false

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dqprn61a7j4bk"]
 
 [ext_resource type="Script" uid="uid://drq565n5jsvn4" path="res://Scripts/Mover.gd" id="1_42psa"]
-[ext_resource type="PackedScene" uid="uid://cm4qm7klpesq6" path="res://Nodes/Enemies/RoboFish.tscn" id="2_5bn4k"]
+[ext_resource type="PackedScene" uid="uid://cm4qm7klpesq6" path="res://Nodes/RoboFish.tscn" id="2_5bn4k"]
 
 [node name="EnemyPattern" type="Node2D"]
 script = ExtResource("1_42psa")

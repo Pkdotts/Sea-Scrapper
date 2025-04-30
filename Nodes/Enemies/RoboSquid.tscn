@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://eqp0h8vmi7va"]
+[gd_scene load_steps=27 format=3 uid="uid://eqp0h8vmi7va"]
 
 [ext_resource type="Script" uid="uid://dmjjxeeuhc7xe" path="res://Scripts/Enemies/RoboSquidEnemy.gd" id="1_4t1cm"]
 [ext_resource type="Material" uid="uid://bqmu8g5akxawm" path="res://Shaders/Flash.tres" id="2_664tc"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://ognrw56p3tyd" path="res://Nodes/YumFish.tscn" id="10_664tc"]
 [ext_resource type="Script" uid="uid://duu7eqorvs2st" path="res://Scripts/BubbleSpawner.gd" id="10_bdkq1"]
 [ext_resource type="PackedScene" uid="uid://clkaw58ubcibl" path="res://Nodes/Effects/Bubble.tscn" id="11_ak1ju"]
+[ext_resource type="Texture2D" uid="uid://34bibc1ola6c" path="res://Graphics/Effects/VulnerabilityExplosion.png" id="15_nv4sa"]
 
 [sub_resource type="Animation" id="Animation_wc4c6"]
 resource_name = "Idle"
@@ -91,12 +92,56 @@ radius = 9.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_ekvrh"]
 radius = 11.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdc25"]
+atlas = ExtResource("15_nv4sa")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2k1bl"]
+atlas = ExtResource("15_nv4sa")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxb72"]
+atlas = ExtResource("15_nv4sa")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7hxq"]
+atlas = ExtResource("15_nv4sa")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hg0cu"]
+atlas = ExtResource("15_nv4sa")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qoe1j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdc25")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2k1bl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxb72")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7hxq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hg0cu")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
 [node name="RoboSquid" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_4t1cm")
 timer_before_shooting = 2.0
 repeat_shot = true
+score = 200
 hp = 10
 vulnerabilityThreshold = 7
 
@@ -170,6 +215,9 @@ timer_wait_time = 1.0
 random_spawn_start = true
 bullet = ExtResource("11_ak1ju")
 metadata/_custom_type_script = "uid://duu7eqorvs2st"
+
+[node name="VulnerabilityBang" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_qoe1j")
 
 [connection signal="animation_finished" from="FlashPlayer" to="." method="_on_flash_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
