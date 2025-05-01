@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cm4qm7klpesq6"]
+[gd_scene load_steps=28 format=3 uid="uid://cm4qm7klpesq6"]
 
 [ext_resource type="Script" uid="uid://ctpvm2olx0he8" path="res://Scripts/Enemies/BasicEnemy.gd" id="1_m0q24"]
 [ext_resource type="Material" uid="uid://bqmu8g5akxawm" path="res://Shaders/Flash.tres" id="2_wdc25"]
@@ -13,7 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://ognrw56p3tyd" path="res://Nodes/YumFish.tscn" id="11_jtx4s"]
 [ext_resource type="Script" uid="uid://duu7eqorvs2st" path="res://Scripts/BubbleSpawner.gd" id="12_4l3sr"]
 [ext_resource type="PackedScene" uid="uid://clkaw58ubcibl" path="res://Nodes/Effects/Bubble.tscn" id="13_2vk3p"]
+[ext_resource type="Script" uid="uid://bpa4pmtww4fyt" path="res://Scripts/UI/HoverTutorial.gd" id="15_2k1bl"]
 [ext_resource type="Texture2D" uid="uid://34bibc1ola6c" path="res://Graphics/Effects/VulnerabilityExplosion.png" id="15_wdc25"]
+[ext_resource type="LabelSettings" uid="uid://jerxoinlxawy" path="res://Fonts/Bombastic.tres" id="16_uxb72"]
 
 [sub_resource type="Animation" id="Animation_wc4c6"]
 resource_name = "Idle"
@@ -186,6 +188,26 @@ metadata/_custom_type_script = "uid://duu7eqorvs2st"
 sprite_frames = SubResource("SpriteFrames_emqmu")
 frame = 4
 frame_progress = 1.0
+
+[node name="Smack" type="HBoxContainer" parent="."]
+offset_left = -24.0
+offset_top = -32.0
+offset_right = 24.0
+offset_bottom = -20.0
+alignment = 1
+script = ExtResource("15_2k1bl")
+
+[node name="Label2" type="Label" parent="Smack"]
+layout_mode = 2
+text = "SMACK"
+label_settings = ExtResource("16_uxb72")
+
+[node name="Label" type="Label" parent="Smack"]
+modulate = Color(0.983892, 0.495893, 0.197591, 1)
+layout_mode = 2
+text = "Z"
+label_settings = ExtResource("16_uxb72")
+horizontal_alignment = 2
 
 [connection signal="animation_finished" from="FlashPlayer" to="." method="_on_flash_player_animation_finished"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

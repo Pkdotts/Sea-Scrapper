@@ -1,6 +1,6 @@
 extends Control
 
-var musicVolume = -15
+var musicVolume = -10
 
 func _ready():
 	$AudioPlayers/GameMusic.volume_db = musicVolume

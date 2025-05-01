@@ -22,6 +22,7 @@ func shoot():
 func shoot_bullet():
 	if state != States.DYING:
 		bullet_pattern.activate_bullet_spawner()
+		AudioManager.play_sfx(shoot_sfx, "shoot")
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "Shoot":

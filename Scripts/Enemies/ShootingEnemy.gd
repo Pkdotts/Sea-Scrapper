@@ -6,6 +6,8 @@ class_name ShootingEnemy
 @export var repeat_shot = false
 @onready var bullet_pattern = $BulletPattern
 
+var shoot_sfx = preload("res://Sound/SFX/bullet.wav")
+
 func _ready() -> void:
 	timer_before_shooting -= 0.02 * Global.get_difficulty()
 	if timer_before_shooting < 0.7:
@@ -15,6 +17,7 @@ func _ready() -> void:
 func shoot():
 	if state != States.DYING:
 		bullet_pattern.activate_bullet_spawner()
+		
 
 func start_shooting():
 	await get_tree().create_timer(timer_before_shooting).timeout

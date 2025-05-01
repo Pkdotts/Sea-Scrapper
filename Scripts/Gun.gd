@@ -39,6 +39,8 @@ func deactivate_vaccuum():
 	set_collision_shapes(true)
 	time = 0
 	sucking = false
+	if AudioManager.get_sfx("suck") != null:
+		AudioManager.get_sfx("suck").stop()
 
 func set_collision_shapes(enabled):
 	for i in collision_shapes:

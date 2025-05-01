@@ -22,3 +22,7 @@ func update_bar(time: float):
 	await tween.finished
 	#if charge_amount <= 0:
 		#line.hide()
+
+func _on_effects_animation_animation_finished(anim_name: StringName) -> void:
+	if Global.get_charge() >= Global.persistPlayer.charge_step:
+		effects_player.play("Blinking")

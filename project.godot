@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Champlain Gamejam 2025"
-run/main_scene="uid://nxm5py8srpxd"
+config/name="Wave War"
+run/main_scene="uid://dyrwv5rx4yi6"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -42,6 +42,7 @@ Melee=""
 EnemyAttack=""
 Player=""
 Collectable=""
+ChargeShot=""
 
 [input]
 

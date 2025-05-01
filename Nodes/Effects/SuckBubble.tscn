@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cxvblyx6i8dlj"]
+[gd_scene load_steps=9 format=3 uid="uid://cxvblyx6i8dlj"]
 
 [ext_resource type="Texture2D" uid="uid://bfhpbfmxx7u4s" path="res://Graphics/Effects/Bubble.png" id="1_cgw72"]
 [ext_resource type="Script" uid="uid://dqo51gib36geo" path="res://Nodes/Effects/SuckBubble.gd" id="1_vsqvj"]
@@ -29,7 +29,7 @@ tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0416667, 0.333333, 0.5),
+"times": PackedFloat32Array(0, 0.0833333, 0.333333, 0.5),
 "transitions": PackedFloat32Array(1, 1.8025, 1.8025, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.278431), Color(1, 1, 1, 0.278431), Color(1, 1, 1, 0)]
@@ -47,7 +47,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -70,7 +70,11 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gebs4"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cgw72"]
+blend_mode = 1
+
 [node name="SuckBubble" type="RigidBody2D"]
+visible = false
 modulate = Color(1, 1, 1, 0.278431)
 z_index = -1
 material = SubResource("CanvasItemMaterial_5unjn")
@@ -87,6 +91,7 @@ libraries = {
 shape = SubResource("CircleShape2D_gebs4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_cgw72")
 texture = ExtResource("1_cgw72")
 hframes = 3
 

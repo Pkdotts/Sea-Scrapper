@@ -9,7 +9,7 @@ func _ready() -> void:
 
 func start_game():
 	Global.start_game()
-	if !Global.t_flags[3]:
+	if !Global.tutorial_passed:
 		await get_tree().create_timer(3).timeout
 	else:
 		UiCanvasLayer.hide_all_tutorials()

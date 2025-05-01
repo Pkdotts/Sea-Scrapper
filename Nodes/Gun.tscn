@@ -30,7 +30,7 @@ script = ExtResource("3_wy8ml")
 item = ExtResource("2_aj30j")
 amount = 2
 interval = 0.03
-random_spawn_size = Vector2(24, 40)
+random_spawn_size = Vector2(24, 24)
 metadata/_custom_type_script = "uid://bcj1fhoji58bm"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]

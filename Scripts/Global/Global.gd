@@ -7,6 +7,7 @@ var persistPlayer : Player = null
 signal updated_score
 signal updated_level
 signal game_overed
+signal show_suck_tutorial
 
 const PATTERNS = [
 	[ # Difficulty 1
@@ -26,6 +27,15 @@ const PATTERNS = [
 	],[ #Difficulty 5
 		preload("res://Nodes/EnemyPatterns/EP5_1.tscn"),
 		preload("res://Nodes/EnemyPatterns/EP5_2.tscn")
+	],[#Difficulty 6
+		preload("res://Nodes/EnemyPatterns/EP6_1.tscn"),
+		preload("res://Nodes/EnemyPatterns/EP6_2.tscn"),
+		preload("res://Nodes/EnemyPatterns/EP6_3.tscn"),
+		preload("res://Nodes/EnemyPatterns/EP4_1.tscn"),
+		preload("res://Nodes/EnemyPatterns/EP4_2.tscn"),
+		preload("res://Nodes/EnemyPatterns/EP3_1.tscn"),
+		preload("res://Nodes/EnemyPatterns/EP3_2.tscn"),
+		preload("res://Nodes/EnemyPatterns/EP3_3.tscn")
 	]
 ]
 
@@ -44,12 +54,7 @@ var highscore = 0
 
 var gameover = false
 
-var t_flags = [
-	false,
-	false,
-	false,
-	false
-]
+var tutorial_passed = false
 
 var timer: Timer
 
@@ -64,21 +69,18 @@ func start_game() -> void:
 	UiCanvasLayer.add_gamehud_ui()
 
 func check_and_show_tutorial(tut: int):
-	if !t_flags[tut] and !t_flags[3]:
+	if !tutorial_passed:
 		print("global show " + str(tut))
 		UiCanvasLayer.show_tutorial(tut)
 
-func hide_tutorial(tut: int, enabled = true):
-	if !t_flags[tut]:
-		t_flags[tut] = enabled
-		UiCanvasLayer.hide_tutorial(tut)
+func hide_tutorial(tut: int):
+	UiCanvasLayer.hide_tutorial(tut)
 
 func pass_tutorial():
-	hide_tutorial(3)
-	hide_tutorial(2)
 	hide_tutorial(1)
 	hide_tutorial(0)
 	speed = difficulty_speed_increment
+	tutorial_passed = true
 	emit_signal("updated_level")
 
 func set_gameover(enabled):
@@ -113,12 +115,12 @@ func get_charge() -> int:
 
 
 func add_level() -> void:
-	if !gameover and t_flags[3]:
+	if !gameover and tutorial_passed:
 		speed += 1
 		emit_signal("updated_level")
 
 func add_score(amount):
-	if !gameover:
+	if !gameover and tutorial_passed:
 		score += amount
 		emit_signal("updated_score")
 

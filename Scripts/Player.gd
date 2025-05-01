@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Player
 
-enum States {MOVING, DASHING} 
+enum States {MOVING, DASHING, DEAD} 
 
 @onready var sprite = $Sprite2D
 @onready var gun = $Gun
@@ -13,7 +13,14 @@ enum States {MOVING, DASHING}
 @onready var bubble_spawner = $BubbleSpawner
 #@onready var bubble_spawner_timer : Timer = $BubbleSpawner/Timer
 
-
+@onready var sfx = {
+	"hurt": preload("res://Sound/SFX/hurt.wav"),
+	"dash": preload("res://Sound/SFX/dash.wav"),
+	"bullet": preload("res://Sound/SFX/bullet.wav"),
+	"attack": preload("res://Sound/SFX/attack.wav"),
+	"suck": preload("res://Sound/SFX/suck.wav"),
+	"death": preload("res://Sound/SFX/death.wav")
+}
 
 const NORMALSPEED = 6400.0
 const DASHSPEED = 19000
@@ -38,6 +45,10 @@ var state = States.MOVING
 
 func _ready() -> void:
 	Global.persistPlayer = self
+	if Global.tutorial_passed:
+		$Suck.queue_free()
+	else:
+		Global.show_suck_tutorial.connect($Suck.show)
 
 func _physics_process(delta):
 	match state:
@@ -51,18 +62,21 @@ func _physics_process(delta):
 ### INPUTS
 
 func _input(event):
-	if event.is_action_pressed("ui_shift") and !paused:
+	if event.is_action_pressed("ui_shift") and !paused and state != States.DEAD:
 		start_dash()
-
+		AudioManager.play_sfx(sfx["dash"], "dash")
+	
 func attacks(delta):
 	if !attacking and !paused:
 		if Input.is_action_pressed("ui_vacuum") and !gun.sucking:
 			gun.activate_vaccuum()
+			AudioManager.play_sfx(sfx["suck"], "suck")
 		if Input.is_action_just_released("ui_vacuum"):
 			gun.deactivate_vaccuum()
 		if Input.is_action_just_pressed("ui_cancel"):
 			animation_player.stop()
 			animation_player.play("Attack")
+			AudioManager.play_sfx(sfx["attack"], "attack")
 			gun.deactivate_vaccuum()
 			attacking = true
 			gun_timer = 0
@@ -72,6 +86,7 @@ func attacks(delta):
 			if Input.is_action_just_pressed("ui_accept") or gun_timer >= gun_interval_time:
 				gun.spawn_bullet()
 				gun_timer = 0
+				AudioManager.play_sfx(sfx["bullet"], "bullet")
 			
 			if Input.is_action_pressed("ui_accept"):
 				gun_timer += delta
@@ -80,8 +95,9 @@ func attacks(delta):
 				charge -= charge_step
 				gun.spawn_charge_shot()
 				UiCanvasLayer.update_scrap_bar(0.4)
-				if !Global.t_flags[3]:
+				if !Global.tutorial_passed:
 					Global.pass_tutorial()
+					$Suck.queue_free()
 				print("Big Shot")
 				
 	if Input.is_action_just_released("ui_accept"):
@@ -91,7 +107,7 @@ func add_scraps(amount):
 	charge = min(charge + amount, MAXCHARGE)
 	UiCanvasLayer.update_scrap_bar()
 	if charge >= charge_step:
-		Global.check_and_show_tutorial(3)
+		Global.check_and_show_tutorial(1)
 
 func controls():
 	if !paused:
@@ -167,16 +183,27 @@ func flash():
 func damage():
 	if damaging and !effects_player.current_animation == "Damage":
 		Global.add_hp(-1)
+		AudioManager.play_sfx(sfx["hurt"], "hurt")
 		effects_player.play("Damage")
 		AfterImageCreator.stop_creating()
 		Shaker.new(sprite, "offset", Vector2(1, 0), 3, 0.4, 0.04, Vector2(2, 0.5))
-		Slowmo.start_slowmo(0.5, 0.2)
 		if Global.player_hp <= 0:
 			die()
+		else:
+			Slowmo.start_slowmo(0.5, 0.2)
 
 func die():
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "position:x", position.x - 90, 1.2)
+	tween.parallel().tween_property(self, "position:y", position.y - 30, 0.4).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.parallel().tween_property(self, "position:y", position.y + 180, 0.8).set_delay(0.4).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+	tween.play()
+	
+	state = States.DEAD
+	Slowmo.start_slowmo(0.2, 1)
+	await get_tree().create_timer(1).timeout
+	AudioManager.play_sfx(sfx["death"], "death")
 	Global.set_gameover(true)
-	queue_free()
 
 func hit_pause(time):
 	animation_player.speed_scale = 0
@@ -184,7 +211,7 @@ func hit_pause(time):
 	animation_player.speed_scale = 1
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if area.get_groups().has("EnemyAttack") and state != States.DASHING:
+	if area.get_groups().has("EnemyAttack") and state == States.MOVING:
 		if area.has_method("collide"):
 			area.collide()
 		damaging = true

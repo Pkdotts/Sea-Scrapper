@@ -1,9 +1,8 @@
-extends RigidBody2D
+extends Suckable
 class_name Collectable
 
 const MAX_IMPULSE = 200
 const MIN_IMPULSE = 100
-const SUCK_SPEED = 80
 const effectPath = "res://Nodes/Bullets/BulletEffect.tscn"
 
 var sucked = false
@@ -16,12 +15,13 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	
 	if sucked:
-		var offset = Vector2(16, -10 * Global.persistPlayer.inputVector.y)
-		var distance = global_position.distance_to(Global.persistPlayer.gun.global_position + offset)
-		var distance_y = abs(global_position.y - Global.persistPlayer.gun.global_position.y + offset.y)
-		var speed = max(10, randf_range(SUCK_SPEED - distance, 10.0))
-		var direction = global_position.direction_to(Global.persistPlayer.gun.global_position) * Vector2(distance / 20.0, max(5.0, 2.2 * distance_y))
-		apply_impulse(direction * speed)
+		suck(delta)
+		#var offset = Vector2(16, -10 * Global.persistPlayer.inputVector.y)
+		#var distance = global_position.distance_to(Global.persistPlayer.gun.global_position + offset)
+		#var distance_y = abs(global_position.y - Global.persistPlayer.gun.global_position.y + offset.y)
+		#var speed = max(10, randf_range(SUCK_SPEED - distance, 10.0))
+		#var direction = global_position.direction_to(Global.persistPlayer.gun.global_position) * Vector2(distance / 20.0, max(5.0, 2.2 * distance_y))
+		#apply_impulse(direction * speed)
 	if global_position.x < -32:
 		queue_free()
 

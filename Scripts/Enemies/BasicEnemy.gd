@@ -18,7 +18,10 @@ enum States {MOVING, DYING}
 #@onready var electric_effect = $ElectricityEffect
 @onready var vulnerability_bang = $VulnerabilityBang
 
+
+var attacked_sfx = preload("res://Sound/SFX/pow.wav")
 var death_sfx = preload("res://Sound/SFX/metal_pipe.mp3")
+var hit_sfx = preload("res://Sound/SFX/hit.wav")
 
 const KNOCKBACKSPEED = 400
 const KNOCKBACKSPEEDMELEE = 400
@@ -68,14 +71,16 @@ func movement(delta):
 
 func damage(amt, groups):
 	hp -= amt
+	#if groups.has("Bullet"):
+	AudioManager.play_sfx(hit_sfx, "hit" + str(AudioManager.get_number_of_sfx()))
+	#elif groups.has("Melee"):
+		#AudioManager.play_sfx(attacked_sfx, "damaged" + str(AudioManager.get_number_of_sfx()))
 	if hp <= 0:
 		if groups.has("Bullet"):
 			start_dying(KNOCKBACKSPEED)
-			Global.hide_tutorial(1, false)
 		elif groups.has("Melee"):
 			meleed = true
 			start_dying(KNOCKBACKSPEEDMELEE)
-			Global.hide_tutorial(1, false)
 	elif groups.has("Melee"):
 		var shaker = Shaker.new(Sprite, "offset", Vector2(1, 0), 2, 0.2, 0.03, Vector2(0.5, 1.5))
 	FlashPlayer.stop()
@@ -85,8 +90,9 @@ func damage(amt, groups):
 			vulnerability_bang.play("default")
 		FlashPlayer.play("VulnerabilityFlash")
 			
-		if !im_dying:
-			Global.check_and_show_tutorial(1)
+		if !im_dying and !Global.tutorial_passed:
+			if get_node_or_null("Smack") != null:
+				$Smack.show()
 	else:
 		FlashPlayer.play("Flash")
 
@@ -117,22 +123,26 @@ func create_bubble_explosion():
 
 func die() -> void:
 	if !meleed:
-		if Global.t_flags[1]:
+		if Global.tutorial_passed:
 			ScrapSpawner.amount = 1
 		else:
 			ScrapSpawner.amount = 0
+	elif !Global.tutorial_passed:
+		Global.emit_signal("show_suck_tutorial")
 	ScrapSpawner.spawn_items()
 	fish_spawner.spawn_items()
-	if Global.t_flags[3]:
+	
+	if Global.tutorial_passed:
+		
 		Global.add_score(score)
-	Global.check_and_show_tutorial(2)
+	
 	
 	queue_free()
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if visibility_notifier.is_on_screen() and !im_dying:
+	if visibility_notifier.is_on_screen() and !im_dying and state != States.DYING:
 		var area_groups = area.get_groups()
-		if area_groups.has("PlayerAttack") and state != States.DYING:
+		if area_groups.has("PlayerAttack"):
 			area.collide()
 			if area_groups.has("Melee") and hp <= vulnerabilityThreshold:
 				damage(vulnerabilityThreshold, area_groups)
