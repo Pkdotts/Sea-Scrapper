@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b0nsa8ee30foo"]
+[gd_scene load_steps=13 format=3 uid="uid://b0nsa8ee30foo"]
 
 [ext_resource type="Texture2D" uid="uid://b0te1sdnsapma" path="res://Graphics/UI/Title.png" id="1_beaxe"]
 [ext_resource type="Script" uid="uid://delmepi8j5kia" path="res://Scripts/UI/Title.gd" id="1_r6f0j"]
@@ -7,6 +7,7 @@
 [ext_resource type="LabelSettings" uid="uid://jerxoinlxawy" path="res://Fonts/Bombastic.tres" id="6_a4fsp"]
 [ext_resource type="Texture2D" uid="uid://df4b44bwildaf" path="res://Graphics/UI/F5.png" id="6_fiida"]
 [ext_resource type="Script" uid="uid://cfmpbkxxqbhcv" path="res://UI/scorelabel.gd" id="7_mhpkn"]
+[ext_resource type="Texture2D" uid="uid://ds8eod6nmc7bo" path="res://Graphics/UI/Mute.png" id="8_a4fsp"]
 
 [sub_resource type="Animation" id="Animation_rr0t8"]
 resource_name = "Hide"
@@ -134,11 +135,11 @@ libraries = {
 }
 
 [node name="F5" type="Sprite2D" parent="."]
-position = Vector2(32, 16)
+position = Vector2(39, 16)
 texture = ExtResource("5_slkhg")
 
 [node name="F6" type="Sprite2D" parent="."]
-position = Vector2(24, 40)
+position = Vector2(31, 40)
 texture = ExtResource("6_fiida")
 
 [node name="Highscore" type="Label" parent="."]
@@ -152,3 +153,7 @@ horizontal_alignment = 2
 script = ExtResource("7_mhpkn")
 message = "HIGHSCORE"
 digits = 8
+
+[node name="Mute" type="Sprite2D" parent="."]
+position = Vector2(23, 64)
+texture = ExtResource("8_a4fsp")

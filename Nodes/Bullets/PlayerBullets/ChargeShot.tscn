@@ -6,15 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://clkaw58ubcibl" path="res://Nodes/Effects/Bubble.tscn" id="4_fknwm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pcwuu"]
-radius = 5.0
+radius = 24.0
 
 [node name="ChargeShot" type="Area2D" groups=["Bullet", "ChargeShot", "PlayerAttack"]]
-scale = Vector2(4, 4)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_hg3oo")
 startAnim = "BulletStart"
-idleAnim = "PlayerBullet"
+idleAnim = "BigBullet"
 endAnim = "BulletPop"
 destroy_on_hit = false
 damage = 15
@@ -23,10 +22,14 @@ damage = 15
 shape = SubResource("CircleShape2D_pcwuu")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-1.90735e-06, -1.90735e-06)
+scale = Vector2(3.2, 3.2)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_polvl")
-animation = &"PlayerBullet"
+animation = &"BigBullet"
+frame = 1
+frame_progress = 0.24566
 
 [node name="BubbleSpawner" type="Node2D" parent="."]
 script = ExtResource("3_goyhm")

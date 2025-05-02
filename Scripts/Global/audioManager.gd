@@ -2,6 +2,24 @@ extends Control
 
 var musicVolume = -10
 
+var muteState = 0
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("ui_mute"):
+		muteState += 1
+		if muteState == 3:
+			muteState = 0
+		match muteState:
+			0:
+				AudioServer.set_bus_mute(1, false)
+				AudioServer.set_bus_mute(2, false)
+			1:
+				AudioServer.set_bus_mute(1, true)
+				AudioServer.set_bus_mute(2, false)
+			2:
+				AudioServer.set_bus_mute(1, true)
+				AudioServer.set_bus_mute(2, true)
+
 func _ready():
 	$AudioPlayers/GameMusic.volume_db = musicVolume
 	$AudioPlayers/TitleMusic.volume_db = musicVolume

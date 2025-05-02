@@ -200,6 +200,7 @@ func die():
 	tween.play()
 	
 	state = States.DEAD
+	gun.deactivate_vaccuum()
 	Slowmo.start_slowmo(0.2, 1)
 	await get_tree().create_timer(1).timeout
 	AudioManager.play_sfx(sfx["death"], "death")

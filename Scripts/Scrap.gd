@@ -16,7 +16,7 @@ func set_sucking(enabled):
 	
 
 func collect(collector: Node2D):
-	AudioManager.play_sfx(sfx, "scrap" + str(AudioManager.get_number_of_sfx()))
+	AudioManager.play_sfx(sfx, "scrap")
 	collector.add_scraps(charge_amount)
 	Global.add_score(5)
 	super.collect(collector)

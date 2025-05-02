@@ -18,6 +18,7 @@ func _ready() -> void:
 	score.display_number(Global.score)
 	highscore.display_number(Global.highscore)
 	level.display_number(Global.get_difficulty())
+	Global.save_game()
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept") and !pressed:

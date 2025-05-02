@@ -43,8 +43,8 @@ digits = 8
 
 [node name="Level" type="Label" parent="LevelScore"]
 layout_mode = 2
-text = "LEVEL 01"
+text = "WAVE 01"
 label_settings = ExtResource("4_pgklr")
 horizontal_alignment = 2
 script = ExtResource("5_j3vom")
-message = "LEVEL"
+message = "WAVE"

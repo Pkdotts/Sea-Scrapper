@@ -117,9 +117,9 @@ stretch_mode = 2
 [node name="BIGSHOT" type="HBoxContainer" parent="."]
 material = ExtResource("5_uuio0")
 layout_mode = 2
-offset_left = 112.0
+offset_left = 104.0
 offset_top = 16.0
-offset_right = 192.0
+offset_right = 199.0
 offset_bottom = 28.0
 alignment = 1
 script = ExtResource("2_ao1sr")
@@ -131,7 +131,7 @@ blink = true
 
 [node name="Label2" type="Label" parent="BIGSHOT"]
 layout_mode = 2
-text = "BIG SHOT"
+text = "SCRAP SHOT"
 label_settings = ExtResource("1_hb4ao")
 
 [node name="Label" type="Label" parent="BIGSHOT"]
@@ -159,7 +159,7 @@ hide_y = true
 
 [node name="Label2" type="Label" parent="BIGSHOT2"]
 layout_mode = 2
-text = "BIG SHOT"
+text = "SCRAP SHOT"
 label_settings = ExtResource("1_hb4ao")
 
 [node name="Label" type="Label" parent="BIGSHOT2"]

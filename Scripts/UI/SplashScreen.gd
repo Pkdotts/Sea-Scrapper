@@ -14,10 +14,11 @@ func _process(delta: float) -> void:
 		goto_game()
 
 func goto_game():
-	skio = true
-	UiCanvasLayer.circle_transition()
-	await UiCanvasLayer.transition.transition_finished
-	get_tree().change_scene_to_file("res://Maps/MainScene.tscn")
+	if !skio:
+		skio = true
+		UiCanvasLayer.circle_transition()
+		await UiCanvasLayer.transition.transition_finished
+		get_tree().change_scene_to_file("res://Maps/MainScene.tscn")
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:

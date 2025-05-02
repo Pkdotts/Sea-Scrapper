@@ -49,8 +49,8 @@ var speed : int = 0
 const difficulty_speed_increment : int = 5
 const MAX_LEVEL : int = 50
 
-var score = 0
-var highscore = 0
+var score : int = 0
+var highscore : int = 0
 
 var gameover = false
 
@@ -60,6 +60,7 @@ var timer: Timer
 
 func _ready() -> void:
 	AudioManager.play_title_music()
+	load_game()
 
 
 
@@ -132,4 +133,30 @@ func get_difficulty() -> int:
 	if difficulty > MAX_LEVEL:
 		difficulty = MAX_LEVEL
 	return difficulty
+
+func save():
+	var save_dict = {
+		"tutorial_passed": tutorial_passed,
+		"highscore": highscore
+	}
+	return save_dict
+
+func save_game():
+	var save_file = FileAccess.open("user://savegame.save", FileAccess.WRITE)
+	var json_string = JSON.stringify(save())
+	save_file.store_line(json_string)
+
+func load_game():
+	if not FileAccess.file_exists("user://savegame.save"):
+		return # Error! We don't have a save to load.
+	var save_file = FileAccess.open("user://savegame.save", FileAccess.READ)
+	while save_file.get_position() < save_file.get_length():
+		var json_string = save_file.get_line()
+		var json = JSON.new()
+		var parse_result = json.parse(json_string)
+		if not parse_result == OK:
+			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
+			continue
+		tutorial_passed = json.data["tutorial_passed"]
+		highscore = json.data["highscore"]
 		

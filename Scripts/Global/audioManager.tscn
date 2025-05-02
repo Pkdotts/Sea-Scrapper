@@ -15,9 +15,11 @@ anchors_preset = 0
 [node name="GameMusic" type="AudioStreamPlayer" parent="AudioPlayers"]
 stream = ExtResource("2_oudxw")
 volume_db = -0.5
+bus = &"Music"
 
 [node name="TitleMusic" type="AudioStreamPlayer" parent="AudioPlayers"]
 stream = ExtResource("3_uledl")
 volume_db = -0.5
+bus = &"Music"
 
 [node name="Sfx" type="Node" parent="."]
