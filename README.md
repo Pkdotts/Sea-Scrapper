@@ -1,5 +1,7 @@
-# [Sea Scrapper](https://pkdotts.itch.io/sea-scrapper)
+# Sea Scrapper
 Marco Polo was having a nice swim in the ocean, when suddenly, a bunch of weird mechanical fish started attacking him! Armed with a gun and a metal pipe, Marco Polo must now defend the sea from an endless wave of robot sea creatures. 
+
+[PLAY HERE](https://pkdotts.itch.io/sea-scrapper)
 
 ## About
 A game made in Godot 4 for the Champlain College 2025 Game Jam under a week.
@@ -36,4 +38,3 @@ This game uses royalty free music that was edited to loop seamlessly.
 
 "Dirt Rhodes" Kevin MacLeod
 (https://freemusicarchive.org/music/Kevin_MacLeod/Blues_Sampler/Dirt_Rhodes/)
-
