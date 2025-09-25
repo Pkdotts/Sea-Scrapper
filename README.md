@@ -1,4 +1,4 @@
-# Sea Scrapper
+# [Sea Scrapper](https://pkdotts.itch.io/sea-scrapper)
 Marco Polo was having a nice swim in the ocean, when suddenly, a bunch of weird mechanical fish started attacking him! Armed with a gun and a metal pipe, Marco Polo must now defend the sea from an endless wave of robot sea creatures. 
 
 ## About
