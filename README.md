@@ -1,32 +1,40 @@
 # Sea Scrapper
-Apparently, cats have started climbing these mysterious cat towers around the Seesaw Mountains. It is said these cat towers provide the best sleeping spots for maximum sunbathing. Unfortunately, these towers seem pretty unstable for these daring kitties... 
+Marco Polo was having a nice swim in the ocean, when suddenly, a bunch of weird mechanical fish started attacking him! Armed with a gun and a metal pipe, Marco Polo must now defend the sea from an endless wave of robot sea creatures. 
 
 [PLAY HERE](https://pkdotts.itch.io/sea-scrapper)
 
 ## About
-Made for my Unity class's final project.
-
-Uses Unity version 6000.0.41f1 and C#
-
-Library used: [DOTween](https://dotween.demigiant.com/index.php)
+A game made in Godot 4 for the Champlain College 2025 Game Jam under a week.
 
 ## How to Play
 
-Controls:
+Shoot the enemies bullets until they start blinking, then give em' a smack with your metal pipe! You can then suck up their scrap with your gun to charge up a scrap shot! Aim for a highscore!
 
-WASD & Space: Move
+## Controls (Keyboard):
 
-Q / E: Swap  Selected Cat 
+Move: Arrows
 
-Tab: Pause
+Shoot: X 
 
-R: Restart Level
+Smack: Z
+
+Suck: C
+
+Dash: Shift
+
+Scrap: Shot
 
 ## Credits
 
 Game and Art by [@Pkdotts](https://x.com/Pkdotts)
 
+Itch.io Page Cover Art by [@OdinSillyDoodle](https://x.com/OdinSillyDoodle)
+
+
 This game uses royalty free music that was edited to loop seamlessly.
 
-"Fluffing a Duck" Kevin MacLeod
-(https://freemusicarchive.org/music/Kevin_MacLeod/Oddities/Fluffing_a_Duck/)
+"Aces High" Kevin MacLeod
+(https://freemusicarchive.org/music/Kevin_MacLeod/Funk_Sampler/Aces_High/)
+
+"Dirt Rhodes" Kevin MacLeod
+(https://freemusicarchive.org/music/Kevin_MacLeod/Blues_Sampler/Dirt_Rhodes/)
